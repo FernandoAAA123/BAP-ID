@@ -4,721 +4,769 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BAP ID — BAP Studios</title>
-
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:            #000000;
-      --surface:       #111111;
-      --surface2:      #1a1a1a;
-      --border:        #2c2c2c;
-      --border-hover:  #444444;
-      --text-primary:  #ffffff;
-      --text-secondary:#aaaaaa;
-      --text-hint:     #555555;
-      --accent:        #ffffff;
-      --accent-text:   #000000;
-      --accent-hover:  #e0e0e0;
-      --success-bg:    #0a1f0a;
-      --success-color: #4caf50;
-      --error-bg:      #1f0a0a;
-      --error-color:   #f47878;
-      --mono:          'Courier New', monospace;
+      --bg:        #000;
+      --surface:   #0f0f0f;
+      --surface2:  #1a1a1a;
+      --border:    #2a2a2a;
+      --border-lit:#404040;
+      --text1:     #ffffff;
+      --text2:     #888888;
+      --text3:     #444444;
+      --btn-bg:    #ffffff;
+      --btn-text:  #000000;
+      --btn-hover: #e8e8e8;
+      --green:     #4ade80;
+      --red:       #f87171;
+      --red-bg:    rgba(248,113,113,0.07);
+      --mono:      'Courier New', monospace;
+      --r:         12px;
+      --r-sm:      8px;
+    }
+
+    html, body {
+      background: var(--bg);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text1);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100%;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: var(--bg);
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 1.5rem 1rem;
+      min-height: 100vh;
+      padding: 2rem 1rem;
     }
 
     /* ── Logo ── */
-    .bap-logo {
+    .logo {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       margin-bottom: 1.75rem;
     }
-
-    .bap-logo img {
-      width: 46px;
-      height: 46px;
-      object-fit: contain;
-      border-radius: 10px;
-      border: 1px solid var(--border-hover);
+    .logo-img {
+      width: 56px; height: 56px;
+      border-radius: 14px;
+      border: 1px solid var(--border-lit);
+      overflow: hidden;
+      background: var(--surface2);
     }
-
-    .bap-logo-text {
-      font-size: 22px;
+    .logo-img img { width: 100%; height: 100%; object-fit: cover; }
+    .logo-name {
+      font-size: 12px;
       font-weight: 700;
-      color: var(--text-primary);
-      letter-spacing: -0.5px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--text2);
     }
+    .logo-name b { color: var(--text1); }
 
     /* ── Card ── */
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 2rem;
+      border-radius: var(--r);
+      padding: 1.75rem;
       width: 100%;
-      max-width: 420px;
+      max-width: 390px;
+      animation: slideUp 0.3s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    @keyframes slideUp {
+      from { opacity:0; transform:translateY(14px); }
+      to   { opacity:1; transform:translateY(0); }
     }
 
     .card-title {
-      font-size: 22px;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 6px;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--text1);
+      margin-bottom: 4px;
     }
-
     .card-sub {
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.55;
-      margin-bottom: 1.5rem;
+      font-size: 13px;
+      color: var(--text2);
+      margin-bottom: 1.25rem;
+      line-height: 1.5;
     }
 
     /* ── Badges ── */
-    .games-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 1.5rem;
+    .badges {
+      display: flex; flex-wrap: wrap; gap: 5px;
+      margin-bottom: 1.25rem;
     }
-
-    .game-badge {
-      font-size: 11px;
+    .badge {
+      font-size: 10.5px; font-weight: 500;
       padding: 3px 10px;
       border-radius: 20px;
-      background: var(--surface2);
-      color: var(--text-secondary);
       border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 5px;
+      background: var(--surface2);
+      color: var(--text2);
+      display: flex; align-items: center; gap: 5px;
     }
-
-    .game-badge .dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--text-primary);
-    }
+    .bdot { width: 5px; height: 5px; border-radius: 50%; background: var(--text1); }
+    .badge.dim { opacity: 0.4; }
+    .badge.dim .bdot { background: var(--text3); }
 
     /* ── Provider buttons ── */
-    .provider-btn {
+    .prov-btn {
       width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 11px 16px;
-      border: 1px solid var(--border-hover);
-      border-radius: 9px;
+      display: flex; align-items: center; gap: 10px;
+      padding: 11px 14px;
+      border: 1px solid var(--border-lit);
+      border-radius: var(--r-sm);
       background: var(--surface2);
-      cursor: pointer;
-      font-size: 15px;
-      font-weight: 500;
-      color: var(--text-primary);
+      color: var(--text1);
       font-family: inherit;
-      transition: background 0.15s, border-color 0.15s;
-      margin-bottom: 10px;
+      font-size: 14px; font-weight: 500;
+      cursor: pointer;
+      transition: background 0.12s, border-color 0.12s;
+      margin-bottom: 8px;
     }
-
-    .provider-btn:hover { background: #242424; border-color: #666; }
-    .provider-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-    .provider-btn:last-of-type { margin-bottom: 1.5rem; }
+    .prov-btn:hover:not(:disabled) { background: #242424; border-color: var(--border-lit); }
+    .prov-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .prov-icon { width: 18px; height: 18px; flex-shrink: 0; }
+    .prov-label { flex: 1; }
+    .prov-arr { color: var(--text3); font-size: 16px; line-height: 1; }
 
     /* ── Divider ── */
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 1.5rem;
-    }
-
-    .divider-line { flex: 1; height: 1px; background: var(--border); }
-    .divider-text { font-size: 12px; color: var(--text-hint); white-space: nowrap; }
+    .divider { display: flex; align-items: center; gap: 10px; margin: 1.1rem 0; }
+    .div-line { flex: 1; height: 1px; background: var(--border); }
+    .div-txt  { font-size: 11px; color: var(--text3); }
 
     /* ── Tabs ── */
     .tab-row {
       display: flex;
+      background: var(--bg);
       border: 1px solid var(--border);
-      border-radius: 9px;
-      overflow: hidden;
-      margin-bottom: 1.5rem;
+      border-radius: var(--r-sm);
+      padding: 3px; gap: 3px;
+      margin-bottom: 1.1rem;
     }
-
     .tab-btn {
-      flex: 1;
-      padding: 8px;
-      font-size: 14px;
-      border: none;
-      background: transparent;
-      cursor: pointer;
-      color: var(--text-secondary);
-      font-family: inherit;
+      flex: 1; padding: 7px;
+      font-size: 13px; font-weight: 500;
+      border: none; background: transparent;
+      color: var(--text2); cursor: pointer;
+      border-radius: 6px; font-family: inherit;
       transition: background 0.12s, color 0.12s;
     }
-
     .tab-btn.active {
-      background: var(--accent);
-      color: var(--accent-text);
-      font-weight: 600;
+      background: var(--btn-bg);
+      color: var(--btn-text);
+      font-weight: 700;
     }
 
     /* ── Fields ── */
-    .field { margin-bottom: 1rem; }
-
+    .field { margin-bottom: 12px; }
     .field label {
       display: block;
-      font-size: 13px;
-      color: var(--text-secondary);
-      margin-bottom: 5px;
+      font-size: 11.5px; font-weight: 500;
+      color: var(--text2); margin-bottom: 5px;
     }
-
+    .pw-wrap { position: relative; }
+    .pw-wrap input { padding-right: 38px; }
+    .pw-eye {
+      position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer;
+      color: var(--text3); font-size: 14px; padding: 2px;
+      transition: color 0.12s;
+    }
+    .pw-eye:hover { color: var(--text2); }
     .field input {
       width: 100%;
       padding: 9px 12px;
       border: 1px solid var(--border);
-      border-radius: 8px;
-      font-size: 15px;
-      background: var(--surface2);
-      color: var(--text-primary);
+      border-radius: var(--r-sm);
+      font-size: 14px;
+      background: var(--bg);
+      color: var(--text1);
       font-family: inherit;
       outline: none;
-      transition: border-color 0.15s, box-shadow 0.15s;
+      transition: border-color 0.12s, box-shadow 0.12s;
     }
-
     .field input:focus {
-      border-color: var(--text-primary);
-      box-shadow: 0 0 0 3px rgba(255,255,255,0.08);
+      border-color: var(--border-lit);
+      box-shadow: 0 0 0 3px rgba(255,255,255,0.05);
     }
+    .field input::placeholder { color: var(--text3); }
+    .mono-input { font-family: var(--mono) !important; letter-spacing: 2px; font-size: 13px !important; }
+    .field-hint { font-size: 11px; color: var(--text3); margin-top: 4px; }
 
-    .field input::placeholder { color: var(--text-hint); }
-    .field input.mono { font-family: var(--mono); letter-spacing: 1.5px; }
-    .field .hint { font-size: 11px; color: var(--text-hint); margin-top: 4px; }
-
-    /* ── Error ── */
-    .error-box {
-      font-size: 13px;
-      color: var(--error-color);
-      background: var(--error-bg);
-      border-radius: 7px;
-      padding: 9px 12px;
+    /* ── Msg ── */
+    .msg {
+      font-size: 12.5px;
+      border-radius: var(--r-sm);
+      padding: 8px 12px;
       margin-bottom: 10px;
-      display: none;
-      border: 1px solid rgba(244,120,120,0.15);
+      display: none; line-height: 1.45;
+      border: 1px solid transparent;
     }
+    .msg.err { display:block; color:var(--red); background:var(--red-bg); border-color:rgba(248,113,113,0.18); }
+    .msg.ok  { display:block; color:var(--green); background:rgba(74,222,128,0.07); border-color:rgba(74,222,128,0.2); }
 
     /* ── Primary button ── */
-    .primary-btn {
-      width: 100%;
-      padding: 11px;
-      background: var(--accent);
-      color: var(--accent-text);
-      border: none;
-      border-radius: 9px;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      font-family: inherit;
-      transition: background 0.15s;
+    .cta {
+      width: 100%; padding: 11px;
+      background: var(--btn-bg);
+      color: var(--btn-text);
+      border: none; border-radius: var(--r-sm);
+      font-size: 14px; font-weight: 700;
+      cursor: pointer; font-family: inherit;
+      transition: background 0.12s, transform 0.08s;
       margin-top: 4px;
     }
+    .cta:hover:not(:disabled) { background: var(--btn-hover); }
+    .cta:active:not(:disabled) { transform: scale(0.985); }
+    .cta:disabled { opacity: 0.35; cursor: not-allowed; }
 
-    .primary-btn:hover { background: var(--accent-hover); }
-    .primary-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    /* ── Link ── */
+    .link-row { text-align:center; margin-top:0.9rem; font-size:12.5px; color:var(--text2); }
+    .link-row a { color:var(--text1); cursor:pointer; font-weight:500; }
 
-    /* ── Toggle link ── */
-    .toggle-link {
-      text-align: center;
-      margin-top: 1.25rem;
-      font-size: 13px;
-      color: var(--text-secondary);
+    /* ── Notice ── */
+    .notice {
+      font-size:12px; color:var(--text3);
+      background:var(--bg); border:1px solid var(--border);
+      border-radius:var(--r-sm); padding:9px 12px;
+      margin-bottom:8px; line-height:1.5; text-align:center;
     }
 
-    .toggle-link a {
-      color: var(--text-primary);
-      cursor: pointer;
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
+    /* ════ PROFILE ════ */
+    .prof { text-align: center; }
 
-    /* ── Profile ── */
-    .success-wrap { text-align: center; }
-
-    .success-icon {
-      width: 58px;
-      height: 58px;
+    /* Avatar */
+    .av-wrap {
+      width: 68px; height: 68px;
       border-radius: 50%;
+      border: 1.5px solid var(--border-lit);
       background: var(--surface2);
-      border: 1.5px solid var(--border-hover);
-      display: flex;
-      align-items: center;
-      justify-content: center;
       margin: 0 auto 1rem;
-      font-size: 26px;
-      color: var(--success-color);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; font-weight: 700;
+      overflow: hidden;
+      position: relative;
     }
+    .av-wrap img { width:100%; height:100%; object-fit:cover; position:absolute; inset:0; }
 
-    .success-name {
-      font-size: 19px;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 3px;
-    }
+    .prof-name  { font-size:18px; font-weight:700; margin-bottom:3px; }
+    .prof-email { font-size:12.5px; color:var(--text2); margin-bottom:1.1rem; }
 
-    .success-email {
-      font-size: 13px;
-      color: var(--text-secondary);
-      margin-bottom: 1.5rem;
-    }
-
-    .linked-box {
-      background: var(--surface2);
+    /* UID chip */
+    .uid-chip {
+      display: inline-flex; align-items: center; gap: 6px;
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 12px 14px;
-      margin-bottom: 1.25rem;
-      text-align: left;
+      border-radius: 30px;
+      padding: 4px 12px;
+      font-family: var(--mono);
+      font-size: 11px; color: var(--text2);
+      cursor: pointer; margin-bottom: 1.25rem;
+      transition: border-color 0.12s, color 0.12s;
+      user-select: none;
     }
+    .uid-chip:hover { border-color: var(--border-lit); color: var(--text1); }
+    .uid-dot { width:5px; height:5px; border-radius:50%; background:var(--green); }
 
-    .linked-title {
-      font-size: 10px;
-      color: var(--text-hint);
-      text-transform: uppercase;
-      letter-spacing: 0.7px;
-      margin-bottom: 10px;
+    /* Linked section */
+    .sec-label {
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase;
+      color: var(--text3); text-align: left;
+      margin-bottom: 7px;
     }
+    .linked-list { margin-bottom: 1.25rem; display:flex; flex-direction:column; gap:6px; }
 
     .linked-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 8px;
-    }
-
-    .linked-row:last-child { margin-bottom: 0; }
-    .linked-game-name { font-size: 14px; font-weight: 500; color: var(--text-primary); }
-    .linked-code { font-family: var(--mono); font-size: 12px; color: var(--text-secondary); }
-
-    .linked-status {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 12px;
-      color: var(--success-color);
-    }
-
-    .linked-status .dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--success-color);
-    }
-
-    .signout-btn {
-      font-size: 13px;
-      color: var(--text-hint);
-      background: none;
-      border: none;
-      cursor: pointer;
-      margin-top: 1rem;
-      font-family: inherit;
-      transition: color 0.15s;
-    }
-
-    .signout-btn:hover { color: var(--error-color); }
-
-    /* ── Notice banner (Google Play) ── */
-    .notice {
-      font-size: 12px;
-      color: var(--text-hint);
-      background: var(--surface2);
+      display: flex; align-items: center; gap: 10px;
+      background: var(--bg);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 9px 12px;
-      margin-bottom: 10px;
-      text-align: center;
-      line-height: 1.5;
+      border-radius: var(--r-sm);
+      padding: 10px 12px;
     }
+    .li-icon {
+      width: 30px; height: 30px;
+      border-radius: 7px;
+      background: var(--surface2);
+      border: 1px solid var(--border-lit);
+      overflow: hidden; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px;
+    }
+    .li-icon img { width:100%; height:100%; object-fit:cover; }
+    .li-info { flex:1; text-align:left; }
+    .li-name { font-size:13px; font-weight:600; }
+    .li-code { font-size:11px; font-family:var(--mono); color:var(--text2); margin-top:1px; }
+    .li-pill {
+      font-size: 10px; font-weight: 600;
+      padding: 3px 9px; border-radius: 20px;
+      background: rgba(255,255,255,0.07);
+      color: var(--text2);
+      border: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    .li-pill.on {
+      background: rgba(74,222,128,0.08);
+      color: var(--green);
+      border-color: rgba(74,222,128,0.2);
+    }
+
+    /* Prof actions */
+    .prof-actions { display:flex; flex-direction:column; gap:7px; }
+    .ghost-btn {
+      width:100%; padding:10px;
+      background:transparent; border:1px solid var(--border);
+      border-radius:var(--r-sm);
+      font-size:13px; font-weight:500; color:var(--text2);
+      cursor:pointer; font-family:inherit;
+      transition:border-color 0.12s, color 0.12s, background 0.12s;
+    }
+    .ghost-btn:hover { border-color:var(--border-lit); color:var(--text1); background:var(--surface2); }
+    .signout-btn {
+      background:none; border:none; font-size:12px;
+      color:var(--text3); cursor:pointer; font-family:inherit;
+      transition:color 0.12s; padding:4px;
+    }
+    .signout-btn:hover { color:var(--red); }
 
     /* ── Loader ── */
     .loader {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.7);
-      align-items: center;
-      justify-content: center;
-      z-index: 999;
+      display:none; position:fixed; inset:0;
+      background:rgba(0,0,0,0.7);
+      align-items:center; justify-content:center;
+      z-index:999;
     }
-
-    .loader.active { display: flex; }
-
-    .loader-spinner {
-      width: 40px;
-      height: 40px;
-      border: 3px solid rgba(255,255,255,0.15);
-      border-top-color: #fff;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
+    .loader.on { display:flex; }
+    .spinner {
+      width:34px; height:34px;
+      border:2.5px solid var(--border-lit);
+      border-top-color:var(--text1);
+      border-radius:50%;
+      animation:spin 0.6s linear infinite;
     }
+    @keyframes spin { to { transform:rotate(360deg); } }
 
-    @keyframes spin { to { transform: rotate(360deg); } }
+    /* ── Toast ── */
+    .toast {
+      position:fixed; bottom:1.5rem; left:50%;
+      transform:translateX(-50%) translateY(10px);
+      background:var(--text1); color:var(--btn-text);
+      border-radius:30px; padding:8px 18px;
+      font-size:13px; font-weight:600;
+      white-space:nowrap; z-index:9999;
+      opacity:0; transition:opacity 0.18s, transform 0.18s;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+    .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 
     footer {
-      margin-top: 1.5rem;
-      font-size: 11px;
-      color: var(--text-hint);
-      text-align: center;
+      margin-top:1.5rem;
+      font-size:11px; color:var(--text3); text-align:center;
     }
+    footer a { color:var(--text3); text-decoration:underline; }
+    footer a:hover { color:var(--text2); }
 
-    footer a { color: var(--text-hint); text-decoration: underline; }
+    @media (max-width:430px) {
+      .card { padding:1.4rem; }
+    }
   </style>
 </head>
 <body>
 
-  <div class="loader" id="loader">
-    <div class="loader-spinner"></div>
-  </div>
+  <div class="loader" id="loader"><div class="spinner"></div></div>
+  <div class="toast"  id="toast"></div>
 
   <!-- Logo -->
-  <div class="bap-logo">
-    <img src="https://chibi.iitranq.co.uk/BmBfGROSXFdY.jpg" alt="BAP Studios">
-    <span class="bap-logo-text">BAP ID</span>
+  <div class="logo">
+    <div class="logo-img">
+      <img src="https://chibi.iitranq.co.uk/BmBfGROSXFdY.jpg" alt="BAP Studios">
+    </div>
+    <p class="logo-name"><b>BAP</b> ID</p>
   </div>
 
-  <!-- ── Auth card ── -->
+  <!-- AUTH CARD -->
   <div class="card" id="view-auth">
     <p class="card-title">Bienvenido</p>
     <p class="card-sub">Un solo acceso para todos los juegos y apps de BAP Studios.</p>
 
-    <div class="games-row">
-      <span class="game-badge"><span class="dot"></span> Juego principal</span>
-      <span class="game-badge"><span class="dot"></span> App BAP</span>
-      <span class="game-badge" style="opacity:0.4;">+ más pronto</span>
+    <div class="badges">
+      <span class="badge"><span class="bdot"></span>Cup O'Clicker</span>
+      <span class="badge"><span class="bdot"></span>App BAP</span>
+      <span class="badge dim"><span class="bdot"></span>+más pronto</span>
     </div>
 
-    <!-- Google -->
-    <button class="provider-btn" id="btn-google" onclick="loginGoogle()">
-      <svg width="18" height="18" viewBox="0 0 18 18">
+    <button class="prov-btn" id="btn-google" onclick="ui.loginGoogle()">
+      <svg class="prov-icon" viewBox="0 0 18 18" fill="none">
         <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908C16.658 14.013 17.64 11.706 17.64 9.2z" fill="#4285F4"/>
         <path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z" fill="#34A853"/>
         <path d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
         <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z" fill="#EA4335"/>
       </svg>
-      Continuar con Google
+      <span class="prov-label">Continuar con Google</span>
+      <span class="prov-arr">›</span>
     </button>
 
-    <!-- Google Play Games -->
-    <button class="provider-btn" id="btn-gplay" onclick="loginGooglePlay()">
-      <img src="https://www.svgrepo.com/show/303545/google-play-games-logo.svg" width="18" height="18" style="object-fit:contain;">
-      Continuar con Google Play Games
+    <button class="prov-btn" onclick="ui.toggleGplay()">
+      <img class="prov-icon" src="https://www.svgrepo.com/show/303545/google-play-games-logo.svg" alt="">
+      <span class="prov-label">Continuar con Google Play Games</span>
+      <span class="prov-arr">›</span>
     </button>
-
     <div class="notice" id="gplay-notice" style="display:none">
-      Google Play Games requiere la app en Android. <br>
-      <strong style="color:var(--text-secondary)">Próximamente disponible.</strong>
+      Google Play Games requiere la app en Android.<br>
+      <strong style="color:var(--text2)">Próximamente disponible.</strong>
     </div>
 
     <div class="divider">
-      <div class="divider-line"></div>
-      <span class="divider-text">o con email</span>
-      <div class="divider-line"></div>
+      <div class="div-line"></div>
+      <span class="div-txt">o con email</span>
+      <div class="div-line"></div>
     </div>
 
     <div class="tab-row">
-      <button class="tab-btn active" id="tab-login-btn" onclick="setTab('login')">Iniciar sesión</button>
-      <button class="tab-btn" id="tab-reg-btn" onclick="setTab('register')">Crear cuenta</button>
+      <button class="tab-btn active" id="t-login" onclick="ui.setTab('login')">Iniciar sesión</button>
+      <button class="tab-btn"        id="t-reg"   onclick="ui.setTab('register')">Crear cuenta</button>
     </div>
 
-    <!-- Login -->
+    <!-- LOGIN -->
     <div id="tab-login">
       <div class="field">
-        <label for="login-email">Email</label>
-        <input type="email" id="login-email" placeholder="tu@email.com" autocomplete="email">
+        <label>Email</label>
+        <input type="email" id="l-email" placeholder="tu@email.com" autocomplete="email"
+               onkeydown="if(event.key==='Enter')document.getElementById('l-pass').focus()">
       </div>
       <div class="field">
-        <label for="login-pass">Contraseña</label>
-        <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password">
+        <label>Contraseña</label>
+        <div class="pw-wrap">
+          <input type="password" id="l-pass" placeholder="••••••••" autocomplete="current-password"
+                 onkeydown="if(event.key==='Enter')ui.loginEmail()">
+          <button class="pw-eye" type="button" onclick="ui.togglePw('l-pass',this)" tabindex="-1">👁</button>
+        </div>
       </div>
-      <div class="error-box" id="login-error"></div>
-      <button class="primary-btn" onclick="loginEmail()">Iniciar sesión</button>
-      <div class="toggle-link"><a onclick="showForgot()">¿Olvidaste tu contraseña?</a></div>
+      <div class="msg" id="l-msg"></div>
+      <button class="cta" onclick="ui.loginEmail()">Iniciar sesión</button>
+      <div class="link-row"><a onclick="ui.forgotPw()">¿Olvidaste tu contraseña?</a></div>
     </div>
 
-    <!-- Register -->
+    <!-- REGISTER -->
     <div id="tab-register" style="display:none">
       <div class="field">
-        <label for="reg-name">Nombre</label>
-        <input type="text" id="reg-name" placeholder="Tu nombre" autocomplete="name">
+        <label>Nombre</label>
+        <input type="text" id="r-name" placeholder="Tu nombre" autocomplete="name">
       </div>
       <div class="field">
-        <label for="reg-email">Email</label>
-        <input type="email" id="reg-email" placeholder="tu@email.com" autocomplete="email">
+        <label>Email</label>
+        <input type="email" id="r-email" placeholder="tu@email.com" autocomplete="email">
       </div>
       <div class="field">
-        <label for="reg-pass">Contraseña</label>
-        <input type="password" id="reg-pass" placeholder="Mínimo 8 caracteres" autocomplete="new-password">
+        <label>Contraseña</label>
+        <div class="pw-wrap">
+          <input type="password" id="r-pass" placeholder="Mínimo 8 caracteres" autocomplete="new-password">
+          <button class="pw-eye" type="button" onclick="ui.togglePw('r-pass',this)" tabindex="-1">👁</button>
+        </div>
       </div>
       <div class="field">
-        <label for="reg-code">
-          Código del juego
-          <span style="color:var(--text-hint); font-weight:400;">(opcional)</span>
-        </label>
-        <input type="text" id="reg-code" class="mono" placeholder="XXXX-XX-XXXX" maxlength="12" oninput="formatCode(this)">
-        <p class="hint">Vincula tu progreso existente al crear la cuenta.</p>
+        <label>Código del juego <span style="color:var(--text3);font-weight:400">(opcional)</span></label>
+        <input type="text" id="r-code" class="mono-input" placeholder="XXXX-XX-XXXX" maxlength="12"
+               oninput="ui.formatCode(this)">
+        <p class="field-hint">Vincula tu progreso existente al crear la cuenta.</p>
       </div>
-      <div class="error-box" id="reg-error"></div>
-      <button class="primary-btn" onclick="registerEmail()">Crear BAP ID</button>
+      <div class="msg" id="r-msg"></div>
+      <button class="cta" onclick="ui.registerEmail()">Crear BAP ID</button>
     </div>
   </div>
 
-  <!-- ── Profile card ── -->
+  <!-- PROFILE CARD -->
   <div class="card" id="view-profile" style="display:none">
-    <div class="success-wrap">
-      <div class="success-icon">✓</div>
-      <p class="success-name" id="profile-name">Jugador</p>
-      <p class="success-email" id="profile-email">usuario@email.com</p>
+    <div class="prof">
+      <div class="av-wrap" id="p-avatar">?</div>
+      <p class="prof-name"  id="p-name">—</p>
+      <p class="prof-email" id="p-email">—</p>
+      <div class="uid-chip" onclick="ui.copyUID()" title="Copiar ID">
+        <span class="uid-dot"></span>
+        <span id="p-uid">—</span>
+        <span style="font-size:10px;opacity:0.4">⎘</span>
+      </div>
 
-      <div class="linked-box">
-        <p class="linked-title">Productos vinculados</p>
+      <p class="sec-label">Productos vinculados</p>
+      <div class="linked-list">
         <div class="linked-row">
-          <span class="linked-game-name">Juego principal</span>
-          <span class="linked-code" id="profile-code">—</span>
+          <div class="li-icon">
+            <img src="https://uploads.onecompiler.io/447259qgx/44cxpnfu9/Vaso%20de%20Universo.png" alt="">
+          </div>
+          <div class="li-info">
+            <div class="li-name">Cup O'Clicker</div>
+            <div class="li-code" id="p-code">—</div>
+          </div>
+          <span class="li-pill" id="p-code-pill">Sin código</span>
         </div>
         <div class="linked-row">
-          <span class="linked-game-name">App BAP</span>
-          <span class="linked-status"><span class="dot"></span> Conectado</span>
+          <div class="li-icon">
+            <img src="https://chibi.iitranq.co.uk/BmBfGROSXFdY.jpg" alt="">
+          </div>
+          <div class="li-info">
+            <div class="li-name">App BAP</div>
+            <div class="li-code">app.bapstudios.com</div>
+          </div>
+          <span class="li-pill on">Conectado</span>
         </div>
       </div>
 
-      <button class="primary-btn" style="margin-bottom:8px">Gestionar cuenta</button>
-      <button class="signout-btn" onclick="doSignOut()">Cerrar sesión</button>
+      <div class="prof-actions">
+        <button class="ghost-btn">⚙ Gestionar cuenta</button>
+        <button class="signout-btn" onclick="ui.signOut()">Cerrar sesión</button>
+      </div>
     </div>
   </div>
 
   <footer>
-    BAP Studios &nbsp;·&nbsp; <a href="#">Privacidad</a>
+    BAP Studios &nbsp;·&nbsp;
+    <a href="#">Privacidad</a> &nbsp;·&nbsp;
+    <a href="#">Soporte</a>
   </footer>
 
-  <script>
-    // ════════════════════════════════════════════════
-    //  🔧 CONFIGURACIÓN — reemplaza con tus datos reales
-    // ════════════════════════════════════════════════
-    const firebaseConfig = {
+  <!-- Firebase SDK modular — type="module" garantiza que las importaciones
+       se resuelvan en orden antes de ejecutar cualquier código -->
+  <script type="module">
+    import { initializeApp }                      from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+    import { getAuth, onAuthStateChanged,
+             signInWithPopup, signInWithEmailAndPassword,
+             createUserWithEmailAndPassword, updateProfile,
+             sendPasswordResetEmail, signOut,
+             GoogleAuthProvider }                 from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+    import { getFirestore, doc, getDoc, setDoc,
+             updateDoc, serverTimestamp }          from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+    // ══════════════════════════════════
+    //  🔧 CONFIG
+    // ══════════════════════════════════
+    const app  = initializeApp({
       apiKey:            "AIzaSyDYO-VjjLbqrYIWV-mMfKpsR_TvBJZgLZ0",
       authDomain:        "bap-studios-id.firebaseapp.com",
       projectId:         "bap-studios-id",
       storageBucket:     "bap-studios-id.firebasestorage.app",
       messagingSenderId: "501288448264",
       appId:             "1:501288448264:web:01cd627b9a63a23e3c3cbd"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db   = firebase.firestore();
-
-    // ── UI helpers ──
-    const loader  = document.getElementById('loader');
-    const setLoad = v => loader.classList.toggle('active', v);
-
-    function setTab(t) {
-      const isL = t === 'login';
-      document.getElementById('tab-login').style.display    = isL ? '' : 'none';
-      document.getElementById('tab-register').style.display = isL ? 'none' : '';
-      document.getElementById('tab-login-btn').classList.toggle('active', isL);
-      document.getElementById('tab-reg-btn').classList.toggle('active', !isL);
-    }
-
-    function showError(id, msg, type = 'error') {
-      const el = document.getElementById(id);
-      el.textContent      = msg;
-      el.style.display    = 'block';
-      el.style.color      = type === 'success' ? 'var(--success-color)' : 'var(--error-color)';
-      el.style.background = type === 'success' ? 'var(--success-bg)'    : 'var(--error-bg)';
-    }
-
-    function clearErrors() {
-      ['login-error','reg-error'].forEach(id => {
-        const el = document.getElementById(id);
-        el.style.display = 'none';
-        el.textContent   = '';
-      });
-    }
-
-    function formatCode(el) {
-      let v = el.value.replace(/[^A-Za-z0-9]/g,'').toUpperCase();
-      if (v.length > 4) v = v.slice(0,4) + '-' + v.slice(4);
-      if (v.length > 7) v = v.slice(0,7) + '-' + v.slice(7);
-      el.value = v.slice(0, 12);
-    }
-
-    // ── Mostrar perfil ──
-    async function showProfile(user) {
-      document.getElementById('profile-name').textContent  = user.displayName || user.email.split('@')[0];
-      document.getElementById('profile-email').textContent = user.email;
-
-      let gameCode = '';
-      try {
-        const doc = await db.collection('bap_users').doc(user.uid).get();
-        if (doc.exists) {
-          gameCode = doc.data().linked_games?.juego_principal || '';
-          document.getElementById('profile-code').textContent = gameCode || '—';
-        }
-      } catch(e) { console.warn('No se pudo leer el perfil:', e); }
-
-      document.getElementById('view-auth').style.display    = 'none';
-      document.getElementById('view-profile').style.display = '';
-
-      // ── Guardar UID en localStorage para que el juego lo detecte ──
-      try { localStorage.setItem('bap_id_uid', user.uid); } catch(e) {}
-
-      // ── Notificar al juego si esta ventana fue abierta como popup ──
-      if (window.opener && !window.opener.closed) {
-        window.opener.postMessage({
-          type:     'BAP_ID_LOGIN',
-          uid:      user.uid,
-          name:     user.displayName || user.email.split('@')[0],
-          email:    user.email,
-          gameCode: gameCode
-        }, '*');
-        // Cerrar el popup tras 1.5 segundos si el juego lo abrió
-        setTimeout(() => window.close(), 1500);
-      }
-    }
-
-    // ── Guardar perfil en Firestore ──
-    async function saveProfile(user, extra = {}) {
-      const ref  = db.collection('bap_users').doc(user.uid);
-      const snap = await ref.get();
-
-      if (!snap.exists) {
-        await ref.set({
-          uid:        user.uid,
-          email:      user.email,
-          name:       user.displayName || extra.name || '',
-          created_at: firebase.firestore.FieldValue.serverTimestamp(),
-          linked_games: extra.code ? { juego_principal: extra.code } : {}
-        });
-      } else if (extra.code) {
-        const existing = snap.data().linked_games?.juego_principal;
-        if (!existing) await ref.update({ 'linked_games.juego_principal': extra.code });
-      }
-    }
-
-    // ── Google ──
-    async function loginGoogle() {
-      clearErrors();
-      setLoad(true);
-      try {
-        const provider = new firebase.auth.GoogleAuthProvider();
-        const result   = await auth.signInWithPopup(provider);
-        await saveProfile(result.user);
-        await showProfile(result.user);
-      } catch(e) {
-        showError('login-error', traducirError(e.code));
-      } finally { setLoad(false); }
-    }
-
-    // ── Google Play Games (próximamente) ──
-    function loginGooglePlay() {
-      const notice = document.getElementById('gplay-notice');
-      notice.style.display = notice.style.display === 'none' ? '' : 'none';
-      // TODO: cuando esté disponible, usar Google Play Games SDK con Firebase custom token
-      // Documentación: https://firebase.google.com/docs/auth/android/play-games
-    }
-
-    // ── Email login ──
-    async function loginEmail() {
-      clearErrors();
-      const email = document.getElementById('login-email').value.trim();
-      const pass  = document.getElementById('login-pass').value;
-      if (!email || !pass) { showError('login-error', 'Completa email y contraseña.'); return; }
-      setLoad(true);
-      try {
-        const result = await auth.signInWithEmailAndPassword(email, pass);
-        await showProfile(result.user);
-      } catch(e) {
-        showError('login-error', traducirError(e.code));
-      } finally { setLoad(false); }
-    }
-
-    // ── Registro ──
-    async function registerEmail() {
-      clearErrors();
-      const name  = document.getElementById('reg-name').value.trim();
-      const email = document.getElementById('reg-email').value.trim();
-      const pass  = document.getElementById('reg-pass').value;
-      const code  = document.getElementById('reg-code').value.trim();
-
-      if (!name || !email || !pass)   { showError('reg-error', 'Nombre, email y contraseña son obligatorios.'); return; }
-      if (pass.length < 8)            { showError('reg-error', 'La contraseña debe tener al menos 8 caracteres.'); return; }
-      if (code && code.length !== 12) { showError('reg-error', 'El código debe tener el formato XXXX-XX-XXXX.'); return; }
-
-      setLoad(true);
-      try {
-        const result = await auth.createUserWithEmailAndPassword(email, pass);
-        await result.user.updateProfile({ displayName: name });
-        await saveProfile(result.user, { name, code: code || null });
-        await showProfile(result.user);
-      } catch(e) {
-        showError('reg-error', traducirError(e.code));
-      } finally { setLoad(false); }
-    }
-
-    // ── Recuperar contraseña ──
-    async function showForgot() {
-      const email = document.getElementById('login-email').value.trim();
-      if (!email) { showError('login-error', 'Escribe tu email arriba primero.'); return; }
-      setLoad(true);
-      try {
-        await auth.sendPasswordResetEmail(email);
-        showError('login-error', '✓ Revisa tu correo para restablecer la contraseña.', 'success');
-      } catch(e) {
-        showError('login-error', traducirError(e.code));
-      } finally { setLoad(false); }
-    }
-
-    // ── Cerrar sesión ──
-    async function doSignOut() {
-      await auth.signOut();
-      document.getElementById('view-profile').style.display = 'none';
-      document.getElementById('view-auth').style.display    = '';
-    }
-
-    // ── Persistencia ──
-    auth.onAuthStateChanged(async user => {
-      if (user) await showProfile(user);
     });
+    const auth = getAuth(app);
+    const db   = getFirestore(app);
 
-    // ── Errores en español ──
-    function traducirError(code) {
+    // ── Helpers ──────────────────────
+    const $  = id => document.getElementById(id);
+    const loader = $('loader');
+    const load   = v => loader.classList.toggle('on', v);
+
+    let _toastT;
+    function toast(msg, dur = 2400) {
+      const t = $('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(_toastT);
+      _toastT = setTimeout(() => t.classList.remove('show'), dur);
+    }
+
+    function msg(id, text, type = 'err') {
+      const el = $(id);
+      el.textContent = text;
+      el.className = 'msg ' + type;
+    }
+    function clearMsg(id) { const el=$(id); el.textContent=''; el.className='msg'; }
+
+    function errES(code) {
       return ({
         'auth/user-not-found':         'No existe una cuenta con ese email.',
         'auth/wrong-password':         'Contraseña incorrecta.',
         'auth/invalid-credential':     'Email o contraseña incorrectos.',
         'auth/email-already-in-use':   'Ya existe una cuenta con ese email.',
         'auth/invalid-email':          'El email no es válido.',
-        'auth/weak-password':          'La contraseña es muy débil.',
+        'auth/weak-password':          'La contraseña es muy débil (mín. 8 caracteres).',
         'auth/popup-closed-by-user':   'Cerraste la ventana antes de terminar.',
         'auth/network-request-failed': 'Error de red. Revisa tu conexión.',
         'auth/too-many-requests':      'Demasiados intentos. Espera un momento.',
       })[code] || 'Ocurrió un error. Intenta de nuevo.';
     }
+
+    function fmtCode(raw) {
+      const c = (raw||'').replace(/[^A-Z0-9]/g,'').toUpperCase();
+      if (c.length === 12) return `${c.slice(0,4)}-${c.slice(4,6)}-${c.slice(6)}`;
+      return c || '—';
+    }
+
+    // ── Firestore ────────────────────
+    async function saveProfile(user, extra = {}) {
+      const ref  = doc(db, 'bap_users', user.uid);
+      const snap = await getDoc(ref);
+      if (!snap.exists()) {
+        await setDoc(ref, {
+          uid:        user.uid,
+          email:      user.email,
+          name:       user.displayName || extra.name || '',
+          photo:      user.photoURL    || '',
+          created_at: serverTimestamp(),
+          linked_games: extra.code ? { juego_principal: extra.code } : {}
+        });
+      } else if (extra.code && !snap.data().linked_games?.juego_principal) {
+        await updateDoc(ref, { 'linked_games.juego_principal': extra.code });
+      }
+    }
+
+    // ── Show profile ─────────────────
+    let _uid = '';
+    async function showProfile(user) {
+      _uid = user.uid;
+      const name = user.displayName || user.email.split('@')[0];
+
+      $('p-name').textContent  = name;
+      $('p-email').textContent = user.email;
+      $('p-uid').textContent   = user.uid.slice(0, 16) + '…';
+
+      const av = $('p-avatar');
+      if (user.photoURL) {
+        av.innerHTML = `<img src="${user.photoURL}" alt="avatar">`;
+        av.style.fontSize = '0';
+      } else {
+        av.textContent = name.charAt(0).toUpperCase();
+      }
+
+      let gameCode = '';
+      try {
+        const snap = await getDoc(doc(db, 'bap_users', user.uid));
+        if (snap.exists()) gameCode = snap.data().linked_games?.juego_principal || '';
+      } catch(e) { console.warn('[BAP ID]', e); }
+
+      const codeEl = $('p-code');
+      const pill   = $('p-code-pill');
+      if (gameCode) {
+        codeEl.textContent = fmtCode(gameCode);
+        pill.textContent   = 'Vinculado';
+        pill.classList.add('on');
+      } else {
+        codeEl.textContent = '—';
+        pill.textContent   = 'Sin código';
+        pill.classList.remove('on');
+      }
+
+      $('view-auth').style.display    = 'none';
+      $('view-profile').style.display = '';
+
+      try { localStorage.setItem('bap_id_uid', user.uid); } catch(e) {}
+
+      if (window.opener && !window.opener.closed) {
+        window.opener.postMessage({
+          type: 'BAP_ID_LOGIN', uid: user.uid,
+          name, email: user.email, gameCode
+        }, '*');
+        setTimeout(() => window.close(), 1800);
+      }
+    }
+
+    // ── Auth actions ─────────────────
+    async function loginGoogle() {
+      load(true);
+      try {
+        const r = await signInWithPopup(auth, new GoogleAuthProvider());
+        await saveProfile(r.user);
+        await showProfile(r.user);
+      } catch(e) { msg('l-msg', errES(e.code)); }
+      finally { load(false); }
+    }
+
+    async function loginEmail() {
+      clearMsg('l-msg');
+      const email = $('l-email').value.trim();
+      const pass  = $('l-pass').value;
+      if (!email || !pass) { msg('l-msg', 'Completa email y contraseña.'); return; }
+      load(true);
+      try {
+        const r = await signInWithEmailAndPassword(auth, email, pass);
+        await showProfile(r.user);
+      } catch(e) { msg('l-msg', errES(e.code)); }
+      finally { load(false); }
+    }
+
+    async function registerEmail() {
+      clearMsg('r-msg');
+      const name  = $('r-name').value.trim();
+      const email = $('r-email').value.trim();
+      const pass  = $('r-pass').value;
+      const code  = $('r-code').value.trim();
+      if (!name || !email || !pass)   { msg('r-msg', 'Nombre, email y contraseña son obligatorios.'); return; }
+      if (pass.length < 8)            { msg('r-msg', 'La contraseña debe tener al menos 8 caracteres.'); return; }
+      if (code && code.length !== 12) { msg('r-msg', 'El código debe tener el formato XXXX-XX-XXXX.'); return; }
+      load(true);
+      try {
+        const r = await createUserWithEmailAndPassword(auth, email, pass);
+        await updateProfile(r.user, { displayName: name });
+        await saveProfile(r.user, { name, code: code || null });
+        await showProfile(r.user);
+      } catch(e) { msg('r-msg', errES(e.code)); }
+      finally { load(false); }
+    }
+
+    async function forgotPw() {
+      const email = $('l-email').value.trim();
+      if (!email) { msg('l-msg', 'Escribe tu email arriba primero.'); return; }
+      load(true);
+      try {
+        await sendPasswordResetEmail(auth, email);
+        msg('l-msg', '✓ Revisa tu correo para restablecer la contraseña.', 'ok');
+      } catch(e) { msg('l-msg', errES(e.code)); }
+      finally { load(false); }
+    }
+
+    async function doSignOut() {
+      await signOut(auth);
+      _uid = '';
+      $('view-profile').style.display = 'none';
+      $('view-auth').style.display    = '';
+      try { localStorage.removeItem('bap_id_uid'); } catch(e) {}
+    }
+
+    // ── Persist ──────────────────────
+    onAuthStateChanged(auth, user => { if (user) showProfile(user); });
+
+    // ── Expose to inline onclick ──────
+    window.ui = {
+      loginGoogle,
+      loginEmail,
+      registerEmail,
+      forgotPw,
+      signOut: doSignOut,
+      setTab(t) {
+        const isL = t === 'login';
+        $('tab-login').style.display    = isL ? '' : 'none';
+        $('tab-register').style.display = isL ? 'none' : '';
+        $('t-login').classList.toggle('active', isL);
+        $('t-reg').classList.toggle('active', !isL);
+      },
+      togglePw(id, btn) {
+        const el = $(id);
+        el.type = el.type === 'password' ? 'text' : 'password';
+        btn.textContent = el.type === 'password' ? '👁' : '🙈';
+      },
+      formatCode(el) {
+        let v = el.value.replace(/[^A-Za-z0-9]/g,'').toUpperCase();
+        if (v.length > 4) v = v.slice(0,4)+'-'+v.slice(4);
+        if (v.length > 7) v = v.slice(0,7)+'-'+v.slice(7);
+        el.value = v.slice(0,12);
+      },
+      toggleGplay() {
+        const n = $('gplay-notice');
+        n.style.display = n.style.display === 'none' ? '' : 'none';
+      },
+      copyUID() {
+        if (!_uid) return;
+        navigator.clipboard.writeText(_uid).then(() => toast('ID copiado ✓')).catch(() => toast('No se pudo copiar'));
+      }
+    };
   </script>
+
 </body>
 </html>
