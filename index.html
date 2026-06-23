@@ -384,13 +384,114 @@
   <div class="loader" id="loader"><div class="spinner"></div></div>
   <div class="toast"  id="toast"></div>
 
-  <!-- Logo -->
-  <div class="logo">
-    <div class="logo-img">
-      <img src="https://chibi.iitranq.co.uk/BmBfGROSXFdY.jpg" alt="BAP Studios">
+  <!-- ══════════════════════════════════════ -->
+  <!-- HOME VIEW                             -->
+  <!-- ══════════════════════════════════════ -->
+  <div id="view-home" style="width:100%;max-width:420px;display:flex;flex-direction:column;align-items:center;padding:0 1rem;">
+
+    <!-- Hero logo -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:14px;margin-bottom:2.5rem;margin-top:1rem;">
+      <div style="width:90px;height:90px;border-radius:24px;overflow:hidden;border:1.5px solid rgba(255,255,255,0.15);box-shadow:0 12px 48px rgba(0,0,0,0.7),0 0 0 1px rgba(255,255,255,0.05);">
+        <img src="https://chibi.iitranq.co.uk/BmBfGROSXFdY.jpg" style="width:100%;height:100%;object-fit:cover;" alt="BAP Studios">
+      </div>
+      <div style="text-align:center;">
+        <p style="font-size:28px;font-weight:900;letter-spacing:-0.5px;color:#fff;line-height:1;">BAP ID</p>
+        <p style="font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#555;margin-top:4px;">by BAP Studios</p>
+      </div>
     </div>
-    <p class="logo-name"><b>BAP</b> ID</p>
+
+    <!-- Tagline -->
+    <p style="font-size:15px;color:#888;text-align:center;line-height:1.6;margin-bottom:2.5rem;max-width:300px;">
+      Un solo acceso para todos los juegos y apps de BAP Studios.
+    </p>
+
+    <!-- CTAs -->
+    <div style="width:100%;display:flex;flex-direction:column;gap:8px;margin-bottom:3rem;">
+      <button onclick="ui.showAuth('register')"
+        style="width:100%;padding:14px;background:#fff;color:#000;border:none;border-radius:10px;
+               font-size:15px;font-weight:800;cursor:pointer;font-family:inherit;letter-spacing:-0.2px;
+               box-shadow:0 2px 16px rgba(255,255,255,0.15);transition:background 0.12s,transform 0.08s;"
+        onmouseover="this.style.background='#e8e8e8'" onmouseout="this.style.background='#fff'"
+        onmousedown="this.style.transform='scale(0.985)'" onmouseup="this.style.transform='scale(1)'">
+        Crear BAP ID
+      </button>
+      <button onclick="ui.showAuth('login')"
+        style="width:100%;padding:13px;background:transparent;color:#fff;
+               border:1px solid rgba(255,255,255,0.15);border-radius:10px;
+               font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;
+               transition:border-color 0.12s,background 0.12s;"
+        onmouseover="this.style.background='rgba(255,255,255,0.06)';this.style.borderColor='rgba(255,255,255,0.3)'"
+        onmouseout="this.style.background='transparent';this.style.borderColor='rgba(255,255,255,0.15)'">
+        Iniciar sesión
+      </button>
+    </div>
+
+    <!-- Productos compatibles — al final -->
+    <div style="width:100%;margin-bottom:2rem;">
+      <p style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#333;margin-bottom:12px;text-align:center;">Productos compatibles</p>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;">
+          <div style="width:38px;height:38px;border-radius:10px;overflow:hidden;flex-shrink:0;background:#111;border:1px solid rgba(255,255,255,0.1);">
+            <img src="https://uploads.onecompiler.io/447259qgx/44cxpnfu9/Vaso%20de%20Universo.png" style="width:100%;height:100%;object-fit:cover;" alt="">
+          </div>
+          <div style="flex:1;">
+            <p style="font-size:13px;font-weight:700;color:#fff;">Cup O'Clicker</p>
+            <p style="font-size:10px;color:#444;margin-top:1px;">Juego · Sanjay and Craig</p>
+          </div>
+          <span style="font-size:10px;color:#4ade80;font-weight:600;background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.15);border-radius:20px;padding:3px 9px;">Activo</span>
+        </div>
+
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;">
+          <div style="width:38px;height:38px;border-radius:10px;overflow:hidden;flex-shrink:0;background:#111;border:1px solid rgba(255,255,255,0.1);">
+            <img src="https://chibi.iitranq.co.uk/Y1OMxvpQecD2.png?v=2" style="width:100%;height:100%;object-fit:cover;" alt="">
+          </div>
+          <div style="flex:1;">
+            <p style="font-size:13px;font-weight:700;color:#fff;">Nova</p>
+            <p style="font-size:10px;color:#444;margin-top:1px;">App · Chat y comunidades</p>
+          </div>
+          <span style="font-size:10px;color:#4ade80;font-weight:600;background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.15);border-radius:20px;padding:3px 9px;">Activo</span>
+        </div>
+
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;">
+          <div style="width:38px;height:38px;border-radius:10px;flex-shrink:0;background:#111;border:1px dashed rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;">
+            <span style="font-size:16px;opacity:0.3;">+</span>
+          </div>
+          <div style="flex:1;">
+            <p style="font-size:12px;font-weight:600;color:#333;">Más próximamente</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <footer style="margin-bottom:1.5rem;">
+      BAP Studios &nbsp;·&nbsp;
+      <a href="#" style="color:#333;text-decoration:underline;">Privacidad</a> &nbsp;·&nbsp;
+      <a href="#" style="color:#333;text-decoration:underline;">Soporte</a>
+    </footer>
   </div>
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- AUTH VIEW                             -->
+  <!-- ══════════════════════════════════════ -->
+  <div id="view-auth-wrap" style="display:none;width:100%;max-width:420px;padding:0 1rem;">
+
+    <!-- Back + Logo -->
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.75rem;">
+      <button onclick="ui.showHome()"
+        style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;
+               color:#fff;cursor:pointer;padding:7px 10px;font-size:14px;line-height:1;transition:background 0.12s;"
+        onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">
+        ‹
+      </button>
+      <div style="display:flex;align-items:center;gap:9px;">
+        <div style="width:32px;height:32px;border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.12);">
+          <img src="https://chibi.iitranq.co.uk/BmBfGROSXFdY.jpg" style="width:100%;height:100%;object-fit:cover;" alt="">
+        </div>
+        <p style="font-size:14px;font-weight:800;color:#fff;letter-spacing:-0.2px;">BAP ID</p>
+      </div>
+    </div>
 
   <!-- AUTH CARD -->
   <div class="card" id="view-auth">
@@ -483,6 +584,8 @@
     </div>
   </div>
 
+  </div><!-- /view-auth-wrap -->
+
   <!-- PROFILE CARD -->
   <div class="card" id="view-profile" style="display:none">
     <div class="prof">
@@ -526,11 +629,7 @@
     </div>
   </div>
 
-  <footer>
-    BAP Studios &nbsp;·&nbsp;
-    <a href="#">Privacidad</a> &nbsp;·&nbsp;
-    <a href="#">Soporte</a>
-  </footer>
+
 
   <!-- Firebase SDK modular — type="module" garantiza que las importaciones
        se resuelvan en orden antes de ejecutar cualquier código -->
@@ -653,8 +752,10 @@
         pill.classList.remove('on');
       }
 
-      $('view-auth').style.display    = 'none';
-      $('view-profile').style.display = '';
+      $('view-home').style.display      = 'none';
+      $('view-auth-wrap').style.display  = 'none';
+      $('view-auth').style.display       = 'none';
+      $('view-profile').style.display    = '';
 
       try { localStorage.setItem('bap_id_uid', user.uid); } catch(e) {}
 
@@ -724,8 +825,10 @@
     async function doSignOut() {
       await signOut(auth);
       _uid = '';
-      $('view-profile').style.display = 'none';
-      $('view-auth').style.display    = '';
+      $('view-profile').style.display   = 'none';
+      $('view-auth-wrap').style.display  = 'none';
+      $('view-auth').style.display       = '';
+      $('view-home').style.display       = '';
       try { localStorage.removeItem('bap_id_uid'); } catch(e) {}
     }
 
@@ -764,6 +867,22 @@
       copyUID() {
         if (!_uid) return;
         navigator.clipboard.writeText(_uid).then(() => toast('ID copiado ✓')).catch(() => toast('No se pudo copiar'));
+      },
+      showHome() {
+        document.getElementById('view-home').style.display    = '';
+        document.getElementById('view-auth-wrap').style.display = 'none';
+        document.getElementById('view-profile').style.display = 'none';
+      },
+      showAuth(tab = 'login') {
+        document.getElementById('view-home').style.display      = 'none';
+        document.getElementById('view-auth-wrap').style.display = '';
+        document.getElementById('view-profile').style.display   = 'none';
+        // set correct tab
+        const isL = tab === 'login';
+        document.getElementById('tab-login').style.display    = isL ? '' : 'none';
+        document.getElementById('tab-register').style.display = isL ? 'none' : '';
+        document.getElementById('t-login').classList.toggle('active', isL);
+        document.getElementById('t-reg').classList.toggle('active', !isL);
       }
     };
   </script>
