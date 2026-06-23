@@ -4,378 +4,374 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BAP ID — BAP Studios</title>
+  <link rel="icon" type="image/png" href="https://chibi.iitranq.co.uk/BmBfGROSXFdY.jpg">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 
-    :root {
-      --bg:        #000;
-      --surface:   #0f0f0f;
-      --surface2:  #1a1a1a;
-      --border:    #2a2a2a;
-      --border-lit:#404040;
-      --text1:     #ffffff;
-      --text2:     #888888;
-      --text3:     #444444;
-      --btn-bg:    #ffffff;
-      --btn-text:  #000000;
-      --btn-hover: #e8e8e8;
-      --green:     #4ade80;
-      --red:       #f87171;
-      --red-bg:    rgba(248,113,113,0.07);
-      --mono:      'Courier New', monospace;
-      --r:         12px;
-      --r-sm:      8px;
+    :root{
+      --bg:    #000;
+      --s1:    #0a0a0a;
+      --s2:    #111;
+      --s3:    #1a1a1a;
+      --s4:    #222;
+      --b:     rgba(255,255,255,.07);
+      --b2:    rgba(255,255,255,.12);
+      --t0:    #fff;
+      --t1:    #ccc;
+      --t2:    #777;
+      --t3:    #444;
+      --green: #4ade80;
+      --red:   #f87171;
+      --mono:  'Courier New',monospace;
     }
 
-    html, body {
-      background: var(--bg);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      color: var(--text1);
-      -webkit-font-smoothing: antialiased;
-      min-height: 100%;
-    }
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);color:var(--t1);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
 
-    body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 2rem 1rem;
+    /* ─── NAV ─── */
+    nav{
+      position:fixed;top:0;left:0;right:0;z-index:900;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:0 5%;height:62px;
+      background:rgba(0,0,0,.75);
+      backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+      border-bottom:1px solid var(--b);
     }
+    .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+    .nav-logo img{width:32px;height:32px;border-radius:8px;object-fit:cover;}
+    .nav-logo span{font-size:15px;font-weight:800;color:var(--t0);letter-spacing:-.3px;}
+    .nav-ctas{display:flex;gap:8px;}
+    .nav-btn{
+      padding:7px 18px;border-radius:8px;font-size:13px;font-weight:700;
+      cursor:pointer;font-family:inherit;border:none;transition:all .12s;text-decoration:none;
+      display:inline-flex;align-items:center;
+    }
+    .nav-btn.ghost{background:transparent;color:var(--t1);border:1px solid var(--b2);}
+    .nav-btn.ghost:hover{background:rgba(255,255,255,.06);color:var(--t0);}
+    .nav-btn.solid{background:var(--t0);color:#000;}
+    .nav-btn.solid:hover{background:#e0e0e0;}
 
-    /* ── Logo ── */
-    .logo {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 1.75rem;
+    /* ─── HERO ─── */
+    .hero{
+      min-height:100vh;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      text-align:center;padding:100px 5% 80px;
+      position:relative;overflow:hidden;
     }
-    .logo-img {
-      width: 56px; height: 56px;
-      border-radius: 14px;
-      border: 1px solid var(--border-lit);
-      overflow: hidden;
-      background: var(--surface2);
+    .hero::before{
+      content:'';position:absolute;inset:0;
+      background:radial-gradient(ellipse 70% 55% at 50% 40%,rgba(255,255,255,.04) 0%,transparent 70%);
+      pointer-events:none;
     }
-    .logo-img img { width: 100%; height: 100%; object-fit: cover; }
-    .logo-name {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--text2);
+    /* grid lines subtle */
+    .hero::after{
+      content:'';position:absolute;inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+      background-size:60px 60px;
+      pointer-events:none;
+      mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,#000 40%,transparent 100%);
     }
-    .logo-name b { color: var(--text1); }
+    .hero-badge{
+      display:inline-flex;align-items:center;gap:7px;
+      background:rgba(255,255,255,.06);border:1px solid var(--b2);
+      border-radius:30px;padding:5px 14px;
+      font-size:11.5px;font-weight:600;color:var(--t2);
+      letter-spacing:.5px;text-transform:uppercase;
+      margin-bottom:2rem;position:relative;z-index:1;
+    }
+    .hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);}
+    .hero-logo{
+      width:96px;height:96px;border-radius:24px;
+      border:1px solid rgba(255,255,255,.12);
+      overflow:hidden;margin:0 auto 2rem;
+      box-shadow:0 0 0 1px rgba(255,255,255,.05),0 24px 80px rgba(0,0,0,.8);
+      position:relative;z-index:1;
+    }
+    .hero-logo img{width:100%;height:100%;object-fit:cover;}
+    h1{
+      font-size:clamp(3rem,8vw,6rem);font-weight:900;color:var(--t0);
+      letter-spacing:-2px;line-height:1;margin-bottom:1.25rem;
+      position:relative;z-index:1;
+    }
+    .hero-sub{
+      font-size:clamp(1rem,2.5vw,1.25rem);color:var(--t2);line-height:1.65;
+      max-width:560px;margin:0 auto 2.5rem;position:relative;z-index:1;
+    }
+    .hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;}
+    .btn-hero{
+      padding:14px 32px;border-radius:10px;font-size:15px;font-weight:800;
+      cursor:pointer;font-family:inherit;border:none;transition:all .12s;text-decoration:none;
+      display:inline-flex;align-items:center;gap:8px;
+    }
+    .btn-hero.primary{background:var(--t0);color:#000;box-shadow:0 2px 24px rgba(255,255,255,.12);}
+    .btn-hero.primary:hover{background:#e8e8e8;transform:translateY(-1px);}
+    .btn-hero.secondary{background:transparent;color:var(--t0);border:1px solid rgba(255,255,255,.18);}
+    .btn-hero.secondary:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.3);}
 
-    /* ── Card ── */
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      padding: 1.75rem;
-      width: 100%;
-      max-width: 390px;
-      animation: slideUp 0.3s cubic-bezier(0.22,1,0.36,1) both;
+    /* scroll indicator */
+    .scroll-hint{
+      margin-top:4rem;position:relative;z-index:1;
+      display:flex;flex-direction:column;align-items:center;gap:8px;
+      color:var(--t3);font-size:11px;letter-spacing:1px;text-transform:uppercase;
     }
-    @keyframes slideUp {
-      from { opacity:0; transform:translateY(14px); }
-      to   { opacity:1; transform:translateY(0); }
+    .scroll-arrow{
+      width:20px;height:20px;border-right:1.5px solid var(--t3);border-bottom:1.5px solid var(--t3);
+      transform:rotate(45deg);animation:scrollBounce 1.5s ease-in-out infinite;
     }
+    @keyframes scrollBounce{0%,100%{transform:rotate(45deg) translateY(0);}50%{transform:rotate(45deg) translateY(5px);}}
 
-    .card-title {
-      font-size: 19px;
-      font-weight: 700;
-      color: var(--text1);
-      margin-bottom: 4px;
+    /* ─── SECTION BASE ─── */
+    section{padding:100px 5%;}
+    .section-label{
+      font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;
+      color:var(--t3);margin-bottom:14px;
     }
-    .card-sub {
-      font-size: 13px;
-      color: var(--text2);
-      margin-bottom: 1.25rem;
-      line-height: 1.5;
+    .section-title{
+      font-size:clamp(1.8rem,4vw,3rem);font-weight:900;color:var(--t0);
+      letter-spacing:-1px;line-height:1.1;margin-bottom:16px;
     }
+    .section-body{font-size:16px;color:var(--t2);line-height:1.7;max-width:480px;}
 
-    /* ── Badges ── */
-    .badges {
-      display: flex; flex-wrap: wrap; gap: 5px;
-      margin-bottom: 1.25rem;
+    /* ─── FEATURES BENTO ─── */
+    #features{background:var(--s1);}
+    .bento{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;max-width:1100px;margin:60px auto 0;
     }
-    .badge {
-      font-size: 10.5px; font-weight: 500;
-      padding: 3px 10px;
-      border-radius: 20px;
-      border: 1px solid var(--border);
-      background: var(--surface2);
-      color: var(--text2);
-      display: flex; align-items: center; gap: 5px;
+    .bento-card{
+      background:var(--s2);border:1px solid var(--b);border-radius:16px;
+      padding:32px 28px;transition:border-color .2s,transform .2s;
     }
-    .bdot { width: 5px; height: 5px; border-radius: 50%; background: var(--text1); }
-    .badge.dim { opacity: 0.4; }
-    .badge.dim .bdot { background: var(--text3); }
+    .bento-card:hover{border-color:var(--b2);transform:translateY(-2px);}
+    .bento-card.big{grid-column:span 2;}
+    .bento-icon{
+      width:44px;height:44px;border-radius:12px;
+      background:var(--s3);border:1px solid var(--b);
+      display:flex;align-items:center;justify-content:center;
+      font-size:20px;margin-bottom:20px;
+    }
+    .bento-title{font-size:18px;font-weight:800;color:var(--t0);margin-bottom:8px;letter-spacing:-.3px;}
+    .bento-text{font-size:14px;color:var(--t2);line-height:1.6;}
 
-    /* ── Provider buttons ── */
-    .prov-btn {
-      width: 100%;
-      display: flex; align-items: center; gap: 10px;
-      padding: 11px 14px;
-      border: 1px solid var(--border-lit);
-      border-radius: var(--r-sm);
-      background: var(--surface2);
-      color: var(--text1);
-      font-family: inherit;
-      font-size: 14px; font-weight: 500;
-      cursor: pointer;
-      transition: background 0.12s, border-color 0.12s;
-      margin-bottom: 8px;
+    /* ─── PRODUCTS ─── */
+    #products{background:var(--bg);}
+    .products-grid{
+      display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+      gap:12px;max-width:1100px;margin:60px auto 0;
     }
-    .prov-btn:hover:not(:disabled) { background: #242424; border-color: var(--border-lit); }
-    .prov-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-    .prov-icon { width: 18px; height: 18px; flex-shrink: 0; }
-    .prov-label { flex: 1; }
-    .prov-arr { color: var(--text3); font-size: 16px; line-height: 1; }
+    .product-card{
+      background:var(--s1);border:1px solid var(--b);border-radius:16px;
+      padding:24px;display:flex;align-items:center;gap:16px;
+      transition:border-color .2s,transform .2s;
+    }
+    .product-card:hover{border-color:var(--b2);transform:translateY(-2px);}
+    .product-icon{
+      width:52px;height:52px;border-radius:14px;overflow:hidden;
+      flex-shrink:0;border:1px solid var(--b2);background:var(--s3);
+    }
+    .product-icon img{width:100%;height:100%;object-fit:cover;}
+    .product-icon.empty{display:flex;align-items:center;justify-content:center;font-size:22px;opacity:.3;}
+    .product-name{font-size:15px;font-weight:700;color:var(--t0);margin-bottom:3px;}
+    .product-desc{font-size:12px;color:var(--t3);}
+    .product-pill{
+      margin-left:auto;flex-shrink:0;
+      font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;
+      background:rgba(74,222,128,.08);color:var(--green);
+      border:1px solid rgba(74,222,128,.18);
+    }
+    .product-pill.soon{background:rgba(255,255,255,.04);color:var(--t3);border-color:var(--b);}
 
-    /* ── Divider ── */
-    .divider { display: flex; align-items: center; gap: 10px; margin: 1.1rem 0; }
-    .div-line { flex: 1; height: 1px; background: var(--border); }
-    .div-txt  { font-size: 11px; color: var(--text3); }
+    /* ─── HOW IT WORKS ─── */
+    #how{background:var(--s1);}
+    .steps{
+      display:grid;grid-template-columns:repeat(3,1fr);
+      gap:24px;max-width:900px;margin:60px auto 0;
+    }
+    .step{text-align:center;}
+    .step-num{
+      width:48px;height:48px;border-radius:50%;
+      background:var(--s3);border:1px solid var(--b2);
+      display:flex;align-items:center;justify-content:center;
+      font-size:18px;font-weight:900;color:var(--t0);
+      margin:0 auto 18px;
+    }
+    .step-title{font-size:16px;font-weight:700;color:var(--t0);margin-bottom:8px;}
+    .step-text{font-size:13.5px;color:var(--t2);line-height:1.6;}
 
-    /* ── Tabs ── */
-    .tab-row {
-      display: flex;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: var(--r-sm);
-      padding: 3px; gap: 3px;
-      margin-bottom: 1.1rem;
+    /* ─── CTA BAND ─── */
+    #cta-band{
+      background:var(--bg);
+      padding:100px 5%;text-align:center;
     }
-    .tab-btn {
-      flex: 1; padding: 7px;
-      font-size: 13px; font-weight: 500;
-      border: none; background: transparent;
-      color: var(--text2); cursor: pointer;
-      border-radius: 6px; font-family: inherit;
-      transition: background 0.12s, color 0.12s;
+    #cta-band h2{
+      font-size:clamp(2rem,5vw,3.5rem);font-weight:900;color:var(--t0);
+      letter-spacing:-1.5px;margin-bottom:16px;
     }
-    .tab-btn.active {
-      background: var(--btn-bg);
-      color: var(--btn-text);
-      font-weight: 700;
-    }
+    #cta-band p{font-size:16px;color:var(--t2);margin-bottom:2.5rem;}
 
-    /* ── Fields ── */
-    .field { margin-bottom: 12px; }
-    .field label {
-      display: block;
-      font-size: 11.5px; font-weight: 500;
-      color: var(--text2); margin-bottom: 5px;
+    /* ─── AUTH SECTION ─── */
+    #auth-section{
+      background:var(--s1);
+      padding:100px 5%;
+      display:none; /* shown when user clicks CTA */
     }
-    .pw-wrap { position: relative; }
-    .pw-wrap input { padding-right: 38px; }
-    .pw-eye {
-      position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
-      background: none; border: none; cursor: pointer;
-      color: var(--text3); font-size: 14px; padding: 2px;
-      transition: color 0.12s;
-    }
-    .pw-eye:hover { color: var(--text2); }
-    .field input {
-      width: 100%;
-      padding: 9px 12px;
-      border: 1px solid var(--border);
-      border-radius: var(--r-sm);
-      font-size: 14px;
-      background: var(--bg);
-      color: var(--text1);
-      font-family: inherit;
-      outline: none;
-      transition: border-color 0.12s, box-shadow 0.12s;
-    }
-    .field input:focus {
-      border-color: var(--border-lit);
-      box-shadow: 0 0 0 3px rgba(255,255,255,0.05);
-    }
-    .field input::placeholder { color: var(--text3); }
-    .mono-input { font-family: var(--mono) !important; letter-spacing: 2px; font-size: 13px !important; }
-    .field-hint { font-size: 11px; color: var(--text3); margin-top: 4px; }
+    #auth-section.visible{display:block;}
+    .auth-inner{max-width:420px;margin:0 auto;}
 
-    /* ── Msg ── */
-    .msg {
-      font-size: 12.5px;
-      border-radius: var(--r-sm);
-      padding: 8px 12px;
-      margin-bottom: 10px;
-      display: none; line-height: 1.45;
-      border: 1px solid transparent;
+    /* ─── AUTH CARD (same logic as before but wrapped in landing) ─── */
+    .auth-back{
+      display:inline-flex;align-items:center;gap:8px;
+      background:transparent;border:1px solid var(--b2);border-radius:8px;
+      color:var(--t2);cursor:pointer;padding:7px 14px;
+      font-size:13px;font-family:inherit;margin-bottom:28px;
+      transition:color .12s,border-color .12s;
     }
-    .msg.err { display:block; color:var(--red); background:var(--red-bg); border-color:rgba(248,113,113,0.18); }
-    .msg.ok  { display:block; color:var(--green); background:rgba(74,222,128,0.07); border-color:rgba(74,222,128,0.2); }
+    .auth-back:hover{color:var(--t0);border-color:rgba(255,255,255,.25);}
+    .auth-head{margin-bottom:1.75rem;}
+    .auth-head h2{font-size:26px;font-weight:900;color:var(--t0);letter-spacing:-.5px;margin-bottom:5px;}
+    .auth-head p{font-size:13px;color:var(--t2);}
 
-    /* ── Primary button ── */
-    .cta {
-      width: 100%; padding: 11px;
-      background: var(--btn-bg);
-      color: var(--btn-text);
-      border: none; border-radius: var(--r-sm);
-      font-size: 14px; font-weight: 700;
-      cursor: pointer; font-family: inherit;
-      transition: background 0.12s, transform 0.08s;
-      margin-top: 4px;
+    .prov-btn{
+      width:100%;display:flex;align-items:center;gap:10px;
+      padding:11px 14px;border:1px solid rgba(255,255,255,.14);border-radius:9px;
+      background:var(--s2);color:var(--t0);font-family:inherit;
+      font-size:14px;font-weight:500;cursor:pointer;
+      transition:background .12s,border-color .12s;margin-bottom:8px;
     }
-    .cta:hover:not(:disabled) { background: var(--btn-hover); }
-    .cta:active:not(:disabled) { transform: scale(0.985); }
-    .cta:disabled { opacity: 0.35; cursor: not-allowed; }
+    .prov-btn:hover{background:var(--s3);border-color:rgba(255,255,255,.22);}
+    .prov-icon{width:18px;height:18px;flex-shrink:0;}
+    .prov-arr{color:var(--t3);font-size:16px;margin-left:auto;}
 
-    /* ── Link ── */
-    .link-row { text-align:center; margin-top:0.9rem; font-size:12.5px; color:var(--text2); }
-    .link-row a { color:var(--text1); cursor:pointer; font-weight:500; }
+    .divider{display:flex;align-items:center;gap:10px;margin:1.1rem 0;}
+    .div-line{flex:1;height:1px;background:var(--b);}
+    .div-txt{font-size:11px;color:var(--t3);}
 
-    /* ── Notice ── */
-    .notice {
-      font-size:12px; color:var(--text3);
-      background:var(--bg); border:1px solid var(--border);
-      border-radius:var(--r-sm); padding:9px 12px;
-      margin-bottom:8px; line-height:1.5; text-align:center;
+    .tab-row{
+      display:flex;background:var(--bg);border:1px solid var(--b);
+      border-radius:9px;padding:3px;gap:3px;margin-bottom:1.1rem;
     }
+    .tab-btn{
+      flex:1;padding:7px;font-size:13px;font-weight:500;border:none;
+      background:transparent;color:var(--t2);cursor:pointer;
+      border-radius:6px;font-family:inherit;transition:all .12s;
+    }
+    .tab-btn.active{background:var(--t0);color:#000;font-weight:700;}
 
-    /* ════ PROFILE ════ */
-    .prof { text-align: center; }
+    .field{margin-bottom:12px;}
+    .field label{display:block;font-size:11.5px;font-weight:500;color:var(--t2);margin-bottom:5px;}
+    .field input{
+      width:100%;padding:9px 12px;border:1px solid rgba(255,255,255,.1);
+      border-radius:8px;font-size:14px;background:var(--s2);color:var(--t0);
+      font-family:inherit;outline:none;transition:border-color .12s,box-shadow .12s;
+    }
+    .field input:focus{border-color:rgba(255,255,255,.3);box-shadow:0 0 0 3px rgba(255,255,255,.04);}
+    .field input::placeholder{color:var(--t3);}
+    .mono-input{font-family:var(--mono)!important;letter-spacing:2px;font-size:13px!important;}
+    .field-hint{font-size:11px;color:var(--t3);margin-top:4px;}
+    .pw-wrap{position:relative;}
+    .pw-wrap input{padding-right:38px;}
+    .pw-eye{
+      position:absolute;right:10px;top:50%;transform:translateY(-50%);
+      background:none;border:none;cursor:pointer;color:var(--t3);font-size:14px;
+      transition:color .12s;
+    }
+    .pw-eye:hover{color:var(--t2);}
 
-    /* Avatar */
-    .av-wrap {
-      width: 68px; height: 68px;
-      border-radius: 50%;
-      border: 1.5px solid var(--border-lit);
-      background: var(--surface2);
-      margin: 0 auto 1rem;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 26px; font-weight: 700;
-      overflow: hidden;
-      position: relative;
-    }
-    .av-wrap img { width:100%; height:100%; object-fit:cover; position:absolute; inset:0; }
+    .msg{font-size:12.5px;border-radius:8px;padding:8px 12px;margin-bottom:10px;display:none;line-height:1.45;border:1px solid transparent;}
+    .msg.err{display:block;color:var(--red);background:rgba(248,113,113,.07);border-color:rgba(248,113,113,.18);}
+    .msg.ok {display:block;color:var(--green);background:rgba(74,222,128,.07);border-color:rgba(74,222,128,.2);}
 
-    .prof-name  { font-size:18px; font-weight:700; margin-bottom:3px; }
-    .prof-email { font-size:12.5px; color:var(--text2); margin-bottom:1.1rem; }
+    .cta-btn{
+      width:100%;padding:11px;background:var(--t0);color:#000;border:none;
+      border-radius:9px;font-size:14px;font-weight:800;cursor:pointer;
+      font-family:inherit;transition:background .12s,transform .08s;margin-top:4px;
+    }
+    .cta-btn:hover:not(:disabled){background:#e8e8e8;}
+    .cta-btn:active:not(:disabled){transform:scale(0.985);}
+    .cta-btn:disabled{opacity:.35;cursor:not-allowed;}
 
-    /* UID chip */
-    .uid-chip {
-      display: inline-flex; align-items: center; gap: 6px;
-      border: 1px solid var(--border);
-      border-radius: 30px;
-      padding: 4px 12px;
-      font-family: var(--mono);
-      font-size: 11px; color: var(--text2);
-      cursor: pointer; margin-bottom: 1.25rem;
-      transition: border-color 0.12s, color 0.12s;
-      user-select: none;
-    }
-    .uid-chip:hover { border-color: var(--border-lit); color: var(--text1); }
-    .uid-dot { width:5px; height:5px; border-radius:50%; background:var(--green); }
+    .notice{font-size:12px;color:var(--t3);background:var(--s3);border:1px solid var(--b);border-radius:8px;padding:9px 12px;margin-bottom:8px;line-height:1.5;text-align:center;}
+    .link-row{text-align:center;margin-top:.9rem;font-size:12.5px;color:var(--t2);}
+    .link-row a{color:var(--t0);cursor:pointer;font-weight:600;}
 
-    /* Linked section */
-    .sec-label {
-      font-size: 10px; font-weight: 600;
-      letter-spacing: 1px; text-transform: uppercase;
-      color: var(--text3); text-align: left;
-      margin-bottom: 7px;
+    /* ─── PROFILE VIEW ─── */
+    .prof-wrap{text-align:center;}
+    .av-wrap{
+      width:80px;height:80px;border-radius:50%;
+      border:1.5px solid rgba(255,255,255,.18);background:var(--s3);
+      margin:0 auto 1.1rem;display:flex;align-items:center;justify-content:center;
+      font-size:30px;font-weight:800;overflow:hidden;position:relative;
     }
-    .linked-list { margin-bottom: 1.25rem; display:flex; flex-direction:column; gap:6px; }
+    .av-wrap img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;}
+    .prof-name{font-size:22px;font-weight:900;color:var(--t0);letter-spacing:-.4px;margin-bottom:4px;}
+    .prof-email{font-size:13px;color:var(--t2);margin-bottom:1.25rem;}
+    .uid-chip{
+      display:inline-flex;align-items:center;gap:7px;
+      border:1px solid var(--b);border-radius:30px;padding:5px 14px;
+      font-family:var(--mono);font-size:11px;color:var(--t2);
+      cursor:pointer;margin-bottom:1.5rem;transition:all .12s;user-select:none;
+    }
+    .uid-chip:hover{border-color:rgba(255,255,255,.2);color:var(--t0);}
+    .uid-dot{width:5px;height:5px;border-radius:50%;background:var(--green);}
 
-    .linked-row {
-      display: flex; align-items: center; gap: 10px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: var(--r-sm);
-      padding: 10px 12px;
+    .linked-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);text-align:left;margin-bottom:8px;}
+    .linked-list{display:flex;flex-direction:column;gap:7px;margin-bottom:1.25rem;}
+    .linked-row{
+      display:flex;align-items:center;gap:12px;background:var(--s2);
+      border:1px solid var(--b);border-radius:10px;padding:11px 14px;
     }
-    .li-icon {
-      width: 30px; height: 30px;
-      border-radius: 7px;
-      background: var(--surface2);
-      border: 1px solid var(--border-lit);
-      overflow: hidden; flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 15px;
-    }
-    .li-icon img { width:100%; height:100%; object-fit:cover; }
-    .li-info { flex:1; text-align:left; }
-    .li-name { font-size:13px; font-weight:600; }
-    .li-code { font-size:11px; font-family:var(--mono); color:var(--text2); margin-top:1px; }
-    .li-pill {
-      font-size: 10px; font-weight: 600;
-      padding: 3px 9px; border-radius: 20px;
-      background: rgba(255,255,255,0.07);
-      color: var(--text2);
-      border: 1px solid var(--border);
-      white-space: nowrap;
-    }
-    .li-pill.on {
-      background: rgba(74,222,128,0.08);
-      color: var(--green);
-      border-color: rgba(74,222,128,0.2);
-    }
+    .li-icon{width:32px;height:32px;border-radius:8px;overflow:hidden;flex-shrink:0;border:1px solid var(--b2);background:var(--s3);}
+    .li-icon img{width:100%;height:100%;object-fit:cover;}
+    .li-info{flex:1;text-align:left;}
+    .li-name{font-size:13px;font-weight:700;color:var(--t0);}
+    .li-code{font-size:11px;font-family:var(--mono);color:var(--t2);margin-top:2px;}
+    .li-pill{font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,.05);color:var(--t2);border:1px solid var(--b);white-space:nowrap;}
+    .li-pill.on{background:rgba(74,222,128,.08);color:var(--green);border-color:rgba(74,222,128,.2);}
 
-    /* Prof actions */
-    .prof-actions { display:flex; flex-direction:column; gap:7px; }
-    .ghost-btn {
-      width:100%; padding:10px;
-      background:transparent; border:1px solid var(--border);
-      border-radius:var(--r-sm);
-      font-size:13px; font-weight:500; color:var(--text2);
-      cursor:pointer; font-family:inherit;
-      transition:border-color 0.12s, color 0.12s, background 0.12s;
-    }
-    .ghost-btn:hover { border-color:var(--border-lit); color:var(--text1); background:var(--surface2); }
-    .signout-btn {
-      background:none; border:none; font-size:12px;
-      color:var(--text3); cursor:pointer; font-family:inherit;
-      transition:color 0.12s; padding:4px;
-    }
-    .signout-btn:hover { color:var(--red); }
+    .ghost-btn{width:100%;padding:10px;background:transparent;border:1px solid var(--b);border-radius:9px;font-size:13px;font-weight:500;color:var(--t2);cursor:pointer;font-family:inherit;transition:all .12s;}
+    .ghost-btn:hover{border-color:rgba(255,255,255,.2);color:var(--t0);background:var(--s2);}
+    .signout-btn{background:none;border:none;font-size:12px;color:var(--t3);cursor:pointer;font-family:inherit;padding:6px;transition:color .12s;margin-top:4px;}
+    .signout-btn:hover{color:var(--red);}
 
-    /* ── Loader ── */
-    .loader {
-      display:none; position:fixed; inset:0;
-      background:rgba(0,0,0,0.7);
-      align-items:center; justify-content:center;
-      z-index:999;
+    /* ─── FOOTER ─── */
+    footer{
+      background:var(--bg);border-top:1px solid var(--b);
+      padding:40px 5%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
     }
-    .loader.on { display:flex; }
-    .spinner {
-      width:34px; height:34px;
-      border:2.5px solid var(--border-lit);
-      border-top-color:var(--text1);
-      border-radius:50%;
-      animation:spin 0.6s linear infinite;
-    }
-    @keyframes spin { to { transform:rotate(360deg); } }
+    .footer-logo{display:flex;align-items:center;gap:8px;}
+    .footer-logo img{width:24px;height:24px;border-radius:6px;}
+    .footer-logo span{font-size:13px;font-weight:800;color:var(--t0);}
+    .footer-links{display:flex;gap:20px;flex-wrap:wrap;}
+    .footer-links a{font-size:12px;color:var(--t3);text-decoration:none;transition:color .12s;}
+    .footer-links a:hover{color:var(--t1);}
+    .footer-copy{font-size:11px;color:var(--t3);}
 
-    /* ── Toast ── */
-    .toast {
-      position:fixed; bottom:1.5rem; left:50%;
-      transform:translateX(-50%) translateY(10px);
-      background:var(--text1); color:var(--btn-text);
-      border-radius:30px; padding:8px 18px;
-      font-size:13px; font-weight:600;
-      white-space:nowrap; z-index:9999;
-      opacity:0; transition:opacity 0.18s, transform 0.18s;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-    }
-    .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+    /* ─── LOADER / TOAST ─── */
+    .loader{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);align-items:center;justify-content:center;z-index:9999;}
+    .loader.on{display:flex;}
+    .spinner{width:34px;height:34px;border:2.5px solid rgba(255,255,255,.12);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;}
+    @keyframes spin{to{transform:rotate(360deg);}}
+    .toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(10px);background:var(--t0);color:#000;border-radius:30px;padding:9px 20px;font-size:13px;font-weight:700;white-space:nowrap;z-index:9999;opacity:0;transition:opacity .18s,transform .18s;box-shadow:0 4px 24px rgba(0,0,0,.5);}
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
-    footer {
-      margin-top:1.5rem;
-      font-size:11px; color:var(--text3); text-align:center;
+    /* ─── RESPONSIVE ─── */
+    @media(max-width:768px){
+      .bento{grid-template-columns:1fr;}
+      .bento-card.big{grid-column:span 1;}
+      .steps{grid-template-columns:1fr;}
+      nav{padding:0 4%;}
+      .nav-btn span{display:none;}
     }
-    footer a { color:var(--text3); text-decoration:underline; }
-    footer a:hover { color:var(--text2); }
-
-    @media (max-width:430px) {
-      .card { padding:1.4rem; }
+    @media(max-width:480px){
+      .hero-ctas{flex-direction:column;align-items:stretch;}
+      .btn-hero{justify-content:center;}
+      footer{flex-direction:column;text-align:center;}
+      .footer-links{justify-content:center;}
     }
   </style>
 </head>
@@ -384,255 +380,260 @@
   <div class="loader" id="loader"><div class="spinner"></div></div>
   <div class="toast"  id="toast"></div>
 
-  <!-- ══════════════════════════════════════ -->
-  <!-- HOME VIEW                             -->
-  <!-- ══════════════════════════════════════ -->
-  <div id="view-home" style="width:100%;max-width:420px;display:flex;flex-direction:column;align-items:center;padding:0 1rem;">
-
-    <!-- Hero logo -->
-    <div style="display:flex;flex-direction:column;align-items:center;gap:14px;margin-bottom:2.5rem;margin-top:1rem;">
-      <div style="width:90px;height:90px;border-radius:24px;overflow:hidden;border:1.5px solid rgba(255,255,255,0.15);box-shadow:0 12px 48px rgba(0,0,0,0.7),0 0 0 1px rgba(255,255,255,0.05);">
-        <img src="https://chibi.iitranq.co.uk/BmBfGROSXFdY.jpg" style="width:100%;height:100%;object-fit:cover;" alt="BAP Studios">
-      </div>
-      <div style="text-align:center;">
-        <p style="font-size:28px;font-weight:900;letter-spacing:-0.5px;color:#fff;line-height:1;">BAP ID</p>
-        <p style="font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#555;margin-top:4px;">by BAP Studios</p>
-      </div>
+  <!-- ═══════════ NAV ═══════════ -->
+  <nav>
+    <a class="nav-logo" href="#">
+      <img src="https://chibi.iitranq.co.uk/BmBfGROSXFdY.jpg" alt="BAP Studios">
+      <span>BAP ID</span>
+    </a>
+    <div class="nav-ctas">
+      <button class="nav-btn ghost" onclick="ui.showAuth('login')">Iniciar sesión</button>
+      <button class="nav-btn solid" onclick="ui.showAuth('register')">Crear BAP ID</button>
     </div>
+  </nav>
 
-    <!-- Tagline -->
-    <p style="font-size:15px;color:#888;text-align:center;line-height:1.6;margin-bottom:2.5rem;max-width:300px;">
-      Un solo acceso para todos los juegos y apps de BAP Studios.
-    </p>
-
-    <!-- CTAs -->
-    <div style="width:100%;display:flex;flex-direction:column;gap:8px;margin-bottom:3rem;">
-      <button onclick="ui.showAuth('register')"
-        style="width:100%;padding:14px;background:#fff;color:#000;border:none;border-radius:10px;
-               font-size:15px;font-weight:800;cursor:pointer;font-family:inherit;letter-spacing:-0.2px;
-               box-shadow:0 2px 16px rgba(255,255,255,0.15);transition:background 0.12s,transform 0.08s;"
-        onmouseover="this.style.background='#e8e8e8'" onmouseout="this.style.background='#fff'"
-        onmousedown="this.style.transform='scale(0.985)'" onmouseup="this.style.transform='scale(1)'">
+  <!-- ═══════════ HERO ═══════════ -->
+  <section class="hero" id="home">
+    <div class="hero-badge"><span class="hero-badge-dot"></span>Disponible ahora</div>
+    <div class="hero-logo"><img src="https://chibi.iitranq.co.uk/BmBfGROSXFdY.jpg" alt="BAP Studios"></div>
+    <h1>BAP ID</h1>
+    <p class="hero-sub">Un solo login para todos los juegos y apps de BAP Studios. Protege tu cuenta, juega desde cualquier dispositivo y mantente conectado.</p>
+    <div class="hero-ctas">
+      <button class="btn-hero primary" onclick="ui.showAuth('register')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         Crear BAP ID
       </button>
-      <button onclick="ui.showAuth('login')"
-        style="width:100%;padding:13px;background:transparent;color:#fff;
-               border:1px solid rgba(255,255,255,0.15);border-radius:10px;
-               font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;
-               transition:border-color 0.12s,background 0.12s;"
-        onmouseover="this.style.background='rgba(255,255,255,0.06)';this.style.borderColor='rgba(255,255,255,0.3)'"
-        onmouseout="this.style.background='transparent';this.style.borderColor='rgba(255,255,255,0.15)'">
-        Iniciar sesión
+      <button class="btn-hero secondary" onclick="ui.showAuth('login')">Ya tengo cuenta</button>
+    </div>
+    <div class="scroll-hint">
+      <span>Saber más</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════ FEATURES BENTO ═══════════ -->
+  <section id="features">
+    <div style="text-align:center;max-width:600px;margin:0 auto;">
+      <p class="section-label">Por qué BAP ID</p>
+      <h2 class="section-title">Todo lo que necesitas, en una sola cuenta</h2>
+    </div>
+    <div class="bento">
+      <div class="bento-card big">
+        <div class="bento-icon">🛡️</div>
+        <div class="bento-title">Protege tus partidas</div>
+        <div class="bento-text">Vincula tu cuenta a BAP ID y nunca pierdas tu progreso. Reinstala, cambia de dispositivo o recupera una cuenta perdida — siempre vuelves a donde lo dejaste.</div>
+      </div>
+      <div class="bento-card">
+        <div class="bento-icon">🔗</div>
+        <div class="bento-title">Un login para todo</div>
+        <div class="bento-text">Conecta todos los juegos y apps de BAP Studios con una sola cuenta. Crea BAP ID en uno y vincula el resto en segundos.</div>
+      </div>
+      <div class="bento-card">
+        <div class="bento-icon">📱</div>
+        <div class="bento-title">Multi-dispositivo</div>
+        <div class="bento-text">Juega desde tu teléfono, tablet o cualquier dispositivo compatible. Tu sesión te sigue a donde vayas.</div>
+      </div>
+      <div class="bento-card">
+        <div class="bento-icon">👥</div>
+        <div class="bento-title">Múltiples cuentas</div>
+        <div class="bento-text">¿Quieres un perfil diferente? Crea varios BAP ID y cambia entre ellos fácilmente desde los ajustes de cada app.</div>
+      </div>
+      <div class="bento-card">
+        <div class="bento-icon">⚡</div>
+        <div class="bento-title">Gratis y rápido</div>
+        <div class="bento-text">Crear tu BAP ID es completamente gratis. Solo necesitas un email — en menos de un minuto estás listo.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ PRODUCTOS ═══════════ -->
+  <section id="products">
+    <div style="text-align:center;max-width:600px;margin:0 auto;">
+      <p class="section-label">Productos compatibles</p>
+      <h2 class="section-title">Un ID, todos los juegos</h2>
+      <p style="color:var(--t2);font-size:15px;line-height:1.65;">BAP ID ya funciona en estos productos. Más llegarán pronto.</p>
+    </div>
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-icon"><img src="https://uploads.onecompiler.io/447259qgx/44cxpnfu9/Vaso%20de%20Universo.png" alt="Cup O'Clicker"></div>
+        <div>
+          <div class="product-name">Cup O'Clicker</div>
+          <div class="product-desc">Juego · Sanjay and Craig</div>
+        </div>
+        <span class="product-pill">Activo</span>
+      </div>
+      <div class="product-card">
+        <div class="product-icon"><img src="https://chibi.iitranq.co.uk/Y1OMxvpQecD2.png?v=2" alt="Nova"></div>
+        <div>
+          <div class="product-name">Nova</div>
+          <div class="product-desc">App · Chat y comunidades</div>
+        </div>
+        <span class="product-pill">Activo</span>
+      </div>
+      <div class="product-card">
+        <div class="product-icon empty">+</div>
+        <div>
+          <div class="product-name" style="color:var(--t3);">Más próximamente</div>
+          <div class="product-desc">Nuevos juegos y apps</div>
+        </div>
+        <span class="product-pill soon">Pronto</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ HOW IT WORKS ═══════════ -->
+  <section id="how">
+    <div style="text-align:center;max-width:600px;margin:0 auto;">
+      <p class="section-label">Cómo funciona</p>
+      <h2 class="section-title">En tres pasos</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-title">Crea tu BAP ID</div>
+        <div class="step-text">Regístrate con tu email o con Google. Es gratis y tarda menos de un minuto.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-title">Vincúlalo al juego</div>
+        <div class="step-text">Entra a los ajustes de cualquier producto BAP Studios y conecta tu BAP ID.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-title">Juega seguro</div>
+        <div class="step-text">Tu progreso queda respaldado. Accede desde cualquier dispositivo cuando quieras.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ CTA BAND ═══════════ -->
+  <section id="cta-band">
+    <h2>¿A qué esperas?</h2>
+    <p>Crea tu BAP ID gratis y protege todo tu progreso hoy.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <button class="btn-hero primary" onclick="ui.showAuth('register')">Crear BAP ID gratis</button>
+      <button class="btn-hero secondary" onclick="ui.showAuth('login')">Iniciar sesión</button>
+    </div>
+  </section>
+
+  <!-- ═══════════ AUTH / PROFILE ═══════════ -->
+  <section id="auth-section">
+    <div class="auth-inner">
+
+      <!-- BACK BUTTON -->
+      <button class="auth-back" onclick="ui.showLanding()" id="auth-back-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Volver
       </button>
-    </div>
 
-    <!-- Productos compatibles — al final -->
-    <div style="width:100%;margin-bottom:2rem;">
-      <p style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#333;margin-bottom:12px;text-align:center;">Productos compatibles</p>
-      <div style="display:flex;flex-direction:column;gap:6px;">
-
-        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;">
-          <div style="width:38px;height:38px;border-radius:10px;overflow:hidden;flex-shrink:0;background:#111;border:1px solid rgba(255,255,255,0.1);">
-            <img src="https://uploads.onecompiler.io/447259qgx/44cxpnfu9/Vaso%20de%20Universo.png" style="width:100%;height:100%;object-fit:cover;" alt="">
-          </div>
-          <div style="flex:1;">
-            <p style="font-size:13px;font-weight:700;color:#fff;">Cup O'Clicker</p>
-            <p style="font-size:10px;color:#444;margin-top:1px;">Juego · Sanjay and Craig</p>
-          </div>
-          <span style="font-size:10px;color:#4ade80;font-weight:600;background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.15);border-radius:20px;padding:3px 9px;">Activo</span>
+      <!-- AUTH FORM VIEW -->
+      <div id="view-auth">
+        <div class="auth-head">
+          <h2 id="auth-title">Bienvenido</h2>
+          <p id="auth-sub">Accede o crea tu BAP ID</p>
         </div>
 
-        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;">
-          <div style="width:38px;height:38px;border-radius:10px;overflow:hidden;flex-shrink:0;background:#111;border:1px solid rgba(255,255,255,0.1);">
-            <img src="https://chibi.iitranq.co.uk/Y1OMxvpQecD2.png?v=2" style="width:100%;height:100%;object-fit:cover;" alt="">
-          </div>
-          <div style="flex:1;">
-            <p style="font-size:13px;font-weight:700;color:#fff;">Nova</p>
-            <p style="font-size:10px;color:#444;margin-top:1px;">App · Chat y comunidades</p>
-          </div>
-          <span style="font-size:10px;color:#4ade80;font-weight:600;background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.15);border-radius:20px;padding:3px 9px;">Activo</span>
+        <!-- Google -->
+        <button class="prov-btn" onclick="ui.loginGoogle()">
+          <svg class="prov-icon" viewBox="0 0 18 18" fill="none">
+            <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908C16.658 14.013 17.64 11.706 17.64 9.2z" fill="#4285F4"/>
+            <path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z" fill="#34A853"/>
+            <path d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
+            <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z" fill="#EA4335"/>
+          </svg>
+          <span style="flex:1;">Continuar con Google</span>
+          <span class="prov-arr">›</span>
+        </button>
+
+        <!-- Google Play Games -->
+        <button class="prov-btn" onclick="ui.toggleGplay()">
+          <img class="prov-icon" src="https://www.svgrepo.com/show/303545/google-play-games-logo.svg" alt="">
+          <span style="flex:1;">Continuar con Google Play Games</span>
+          <span class="prov-arr">›</span>
+        </button>
+        <div class="notice" id="gplay-notice" style="display:none">Google Play Games requiere la app en Android. <strong style="color:var(--t2)">Próximamente.</strong></div>
+
+        <div class="divider"><div class="div-line"></div><span class="div-txt">o con email</span><div class="div-line"></div></div>
+
+        <div class="tab-row">
+          <button class="tab-btn active" id="t-login" onclick="ui.setTab('login')">Iniciar sesión</button>
+          <button class="tab-btn"        id="t-reg"   onclick="ui.setTab('register')">Crear cuenta</button>
         </div>
 
-        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;">
-          <div style="width:38px;height:38px;border-radius:10px;flex-shrink:0;background:#111;border:1px dashed rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;">
-            <span style="font-size:16px;opacity:0.3;">+</span>
-          </div>
-          <div style="flex:1;">
-            <p style="font-size:12px;font-weight:600;color:#333;">Más próximamente</p>
-          </div>
+        <!-- LOGIN -->
+        <div id="tab-login">
+          <div class="field"><label>Email</label><input type="email" id="l-email" placeholder="tu@email.com" autocomplete="email" onkeydown="if(event.key==='Enter')document.getElementById('l-pass').focus()"></div>
+          <div class="field"><label>Contraseña</label><div class="pw-wrap"><input type="password" id="l-pass" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')ui.loginEmail()"><button class="pw-eye" type="button" onclick="ui.togglePw('l-pass',this)" tabindex="-1">👁</button></div></div>
+          <div class="msg" id="l-msg"></div>
+          <button class="cta-btn" onclick="ui.loginEmail()">Iniciar sesión</button>
+          <div class="link-row"><a onclick="ui.forgotPw()">¿Olvidaste tu contraseña?</a></div>
         </div>
 
-      </div>
-    </div>
-
-    <footer style="margin-bottom:1.5rem;">
-      BAP Studios &nbsp;·&nbsp;
-      <a href="#" style="color:#333;text-decoration:underline;">Privacidad</a> &nbsp;·&nbsp;
-      <a href="#" style="color:#333;text-decoration:underline;">Soporte</a>
-    </footer>
-  </div>
-
-  <!-- ══════════════════════════════════════ -->
-  <!-- AUTH VIEW                             -->
-  <!-- ══════════════════════════════════════ -->
-  <div id="view-auth-wrap" style="display:none;width:100%;max-width:420px;padding:0 1rem;">
-
-    <!-- Back + Logo -->
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.75rem;">
-      <button onclick="ui.showHome()"
-        style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;
-               color:#fff;cursor:pointer;padding:7px 10px;font-size:14px;line-height:1;transition:background 0.12s;"
-        onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.06)'">
-        ‹
-      </button>
-      <div style="display:flex;align-items:center;gap:9px;">
-        <div style="width:32px;height:32px;border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,0.12);">
-          <img src="https://chibi.iitranq.co.uk/BmBfGROSXFdY.jpg" style="width:100%;height:100%;object-fit:cover;" alt="">
-        </div>
-        <p style="font-size:14px;font-weight:800;color:#fff;letter-spacing:-0.2px;">BAP ID</p>
-      </div>
-    </div>
-
-  <!-- AUTH CARD -->
-  <div class="card" id="view-auth">
-    <p class="card-title">Bienvenido</p>
-    <p class="card-sub">Un solo acceso para todos los juegos y apps de BAP Studios.</p>
-
-    <div class="badges">
-      <span class="badge"><span class="bdot"></span>Cup O'Clicker</span>
-      <span class="badge"><span class="bdot"></span>App BAP</span>
-      <span class="badge dim"><span class="bdot"></span>+más pronto</span>
-    </div>
-
-    <button class="prov-btn" id="btn-google" onclick="ui.loginGoogle()">
-      <svg class="prov-icon" viewBox="0 0 18 18" fill="none">
-        <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908C16.658 14.013 17.64 11.706 17.64 9.2z" fill="#4285F4"/>
-        <path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z" fill="#34A853"/>
-        <path d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05"/>
-        <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z" fill="#EA4335"/>
-      </svg>
-      <span class="prov-label">Continuar con Google</span>
-      <span class="prov-arr">›</span>
-    </button>
-
-    <button class="prov-btn" onclick="ui.toggleGplay()">
-      <img class="prov-icon" src="https://www.svgrepo.com/show/303545/google-play-games-logo.svg" alt="">
-      <span class="prov-label">Continuar con Google Play Games</span>
-      <span class="prov-arr">›</span>
-    </button>
-    <div class="notice" id="gplay-notice" style="display:none">
-      Google Play Games requiere la app en Android.<br>
-      <strong style="color:var(--text2)">Próximamente disponible.</strong>
-    </div>
-
-    <div class="divider">
-      <div class="div-line"></div>
-      <span class="div-txt">o con email</span>
-      <div class="div-line"></div>
-    </div>
-
-    <div class="tab-row">
-      <button class="tab-btn active" id="t-login" onclick="ui.setTab('login')">Iniciar sesión</button>
-      <button class="tab-btn"        id="t-reg"   onclick="ui.setTab('register')">Crear cuenta</button>
-    </div>
-
-    <!-- LOGIN -->
-    <div id="tab-login">
-      <div class="field">
-        <label>Email</label>
-        <input type="email" id="l-email" placeholder="tu@email.com" autocomplete="email"
-               onkeydown="if(event.key==='Enter')document.getElementById('l-pass').focus()">
-      </div>
-      <div class="field">
-        <label>Contraseña</label>
-        <div class="pw-wrap">
-          <input type="password" id="l-pass" placeholder="••••••••" autocomplete="current-password"
-                 onkeydown="if(event.key==='Enter')ui.loginEmail()">
-          <button class="pw-eye" type="button" onclick="ui.togglePw('l-pass',this)" tabindex="-1">👁</button>
-        </div>
-      </div>
-      <div class="msg" id="l-msg"></div>
-      <button class="cta" onclick="ui.loginEmail()">Iniciar sesión</button>
-      <div class="link-row"><a onclick="ui.forgotPw()">¿Olvidaste tu contraseña?</a></div>
-    </div>
-
-    <!-- REGISTER -->
-    <div id="tab-register" style="display:none">
-      <div class="field">
-        <label>Nombre</label>
-        <input type="text" id="r-name" placeholder="Tu nombre" autocomplete="name">
-      </div>
-      <div class="field">
-        <label>Email</label>
-        <input type="email" id="r-email" placeholder="tu@email.com" autocomplete="email">
-      </div>
-      <div class="field">
-        <label>Contraseña</label>
-        <div class="pw-wrap">
-          <input type="password" id="r-pass" placeholder="Mínimo 8 caracteres" autocomplete="new-password">
-          <button class="pw-eye" type="button" onclick="ui.togglePw('r-pass',this)" tabindex="-1">👁</button>
-        </div>
-      </div>
-      <div class="field">
-        <label>Código del juego <span style="color:var(--text3);font-weight:400">(opcional)</span></label>
-        <input type="text" id="r-code" class="mono-input" placeholder="XXXX-XX-XXXX" maxlength="12"
-               oninput="ui.formatCode(this)">
-        <p class="field-hint">Vincula tu progreso existente al crear la cuenta.</p>
-      </div>
-      <div class="msg" id="r-msg"></div>
-      <button class="cta" onclick="ui.registerEmail()">Crear BAP ID</button>
-    </div>
-  </div>
-
-  </div><!-- /view-auth-wrap -->
-
-  <!-- PROFILE CARD -->
-  <div class="card" id="view-profile" style="display:none">
-    <div class="prof">
-      <div class="av-wrap" id="p-avatar">?</div>
-      <p class="prof-name"  id="p-name">—</p>
-      <p class="prof-email" id="p-email">—</p>
-      <div class="uid-chip" onclick="ui.copyUID()" title="Copiar ID">
-        <span class="uid-dot"></span>
-        <span id="p-uid">—</span>
-        <span style="font-size:10px;opacity:0.4">⎘</span>
-      </div>
-
-      <p class="sec-label">Productos vinculados</p>
-      <div class="linked-list">
-        <div class="linked-row">
-          <div class="li-icon">
-            <img src="https://uploads.onecompiler.io/447259qgx/44cxpnfu9/Vaso%20de%20Universo.png" alt="">
+        <!-- REGISTER -->
+        <div id="tab-register" style="display:none">
+          <div class="field"><label>Nombre</label><input type="text" id="r-name" placeholder="Tu nombre" autocomplete="name"></div>
+          <div class="field"><label>Email</label><input type="email" id="r-email" placeholder="tu@email.com" autocomplete="email"></div>
+          <div class="field"><label>Contraseña</label><div class="pw-wrap"><input type="password" id="r-pass" placeholder="Mínimo 8 caracteres" autocomplete="new-password"><button class="pw-eye" type="button" onclick="ui.togglePw('r-pass',this)" tabindex="-1">👁</button></div></div>
+          <div class="field">
+            <label>Código del juego <span style="color:var(--t3);font-weight:400">(opcional)</span></label>
+            <input type="text" id="r-code" class="mono-input" placeholder="XXXX-XX-XXXX" maxlength="12" oninput="ui.formatCode(this)">
+            <p class="field-hint">Vincula tu progreso existente al crear la cuenta.</p>
           </div>
-          <div class="li-info">
-            <div class="li-name">Cup O'Clicker</div>
-            <div class="li-code" id="p-code">—</div>
-          </div>
-          <span class="li-pill" id="p-code-pill">Sin código</span>
-        </div>
-        <div class="linked-row">
-          <div class="li-icon">
-            <img src="https://chibi.iitranq.co.uk/BmBfGROSXFdY.jpg" alt="">
-          </div>
-          <div class="li-info">
-            <div class="li-name">App BAP</div>
-            <div class="li-code">app.bapstudios.com</div>
-          </div>
-          <span class="li-pill on">Conectado</span>
+          <div class="msg" id="r-msg"></div>
+          <button class="cta-btn" onclick="ui.registerEmail()">Crear BAP ID</button>
         </div>
       </div>
 
-      <div class="prof-actions">
-        <button class="ghost-btn">⚙ Gestionar cuenta</button>
-        <button class="signout-btn" onclick="ui.signOut()">Cerrar sesión</button>
+      <!-- PROFILE VIEW -->
+      <div id="view-profile" style="display:none">
+        <div class="prof-wrap">
+          <div class="av-wrap" id="p-avatar">?</div>
+          <p class="prof-name"  id="p-name">—</p>
+          <p class="prof-email" id="p-email">—</p>
+          <div class="uid-chip" onclick="ui.copyUID()" title="Copiar ID">
+            <span class="uid-dot"></span>
+            <span id="p-uid">—</span>
+            <span style="font-size:10px;opacity:.4">⎘</span>
+          </div>
+          <p class="linked-label">Productos vinculados</p>
+          <div class="linked-list">
+            <div class="linked-row">
+              <div class="li-icon"><img src="https://uploads.onecompiler.io/447259qgx/44cxpnfu9/Vaso%20de%20Universo.png" alt=""></div>
+              <div class="li-info"><div class="li-name">Cup O'Clicker</div><div class="li-code" id="p-code">—</div></div>
+              <span class="li-pill" id="p-code-pill">Sin código</span>
+            </div>
+            <div class="linked-row">
+              <div class="li-icon"><img src="https://chibi.iitranq.co.uk/Y1OMxvpQecD2.png?v=2" alt=""></div>
+              <div class="li-info"><div class="li-name">Nova</div><div class="li-code">Chat & comunidades</div></div>
+              <span class="li-pill on">Conectado</span>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <button class="ghost-btn">⚙ Gestionar cuenta</button>
+            <button class="signout-btn" onclick="ui.signOut()">Cerrar sesión</button>
+          </div>
+        </div>
       </div>
+
     </div>
-  </div>
+  </section>
 
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer>
+    <div class="footer-logo">
+      <img src="https://chibi.iitranq.co.uk/BmBfGROSXFdY.jpg" alt="BAP Studios">
+      <span>BAP Studios</span>
+    </div>
+    <div class="footer-links">
+      <a href="#">Privacidad</a>
+      <a href="#">Términos</a>
+      <a href="#">Soporte</a>
+      <a href="#">Nuestros dominios</a>
+    </div>
+    <span class="footer-copy">© 2025 BAP Studios</span>
+  </footer>
 
-
-  <!-- Firebase SDK modular — type="module" garantiza que las importaciones
-       se resuelvan en orden antes de ejecutar cualquier código -->
+  <!-- ═══════════ FIREBASE + LOGIC ═══════════ -->
   <script type="module">
     import { initializeApp }                      from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
     import { getAuth, onAuthStateChanged,
@@ -643,9 +644,6 @@
     import { getFirestore, doc, getDoc, setDoc,
              updateDoc, serverTimestamp }          from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
-    // ══════════════════════════════════
-    //  🔧 CONFIG
-    // ══════════════════════════════════
     const app  = initializeApp({
       apiKey:            "AIzaSyDYO-VjjLbqrYIWV-mMfKpsR_TvBJZgLZ0",
       authDomain:        "bap-studios-id.firebaseapp.com",
@@ -657,232 +655,138 @@
     const auth = getAuth(app);
     const db   = getFirestore(app);
 
-    // ── Helpers ──────────────────────
-    const $  = id => document.getElementById(id);
-    const loader = $('loader');
-    const load   = v => loader.classList.toggle('on', v);
+    const $ = id => document.getElementById(id);
+    const load = v => $('loader').classList.toggle('on', v);
 
     let _toastT;
-    function toast(msg, dur = 2400) {
-      const t = $('toast');
-      t.textContent = msg;
-      t.classList.add('show');
-      clearTimeout(_toastT);
-      _toastT = setTimeout(() => t.classList.remove('show'), dur);
+    function toast(msg, dur=2400){
+      const t=$('toast'); t.textContent=msg; t.classList.add('show');
+      clearTimeout(_toastT); _toastT=setTimeout(()=>t.classList.remove('show'),dur);
+    }
+    function msg(id,text,type='err'){ const el=$(id); el.textContent=text; el.className='msg '+type; }
+    function clearMsg(id){ const el=$(id); el.textContent=''; el.className='msg'; }
+
+    function errES(code){
+      return({'auth/user-not-found':'No existe una cuenta con ese email.','auth/wrong-password':'Contraseña incorrecta.','auth/invalid-credential':'Email o contraseña incorrectos.','auth/email-already-in-use':'Ya existe una cuenta con ese email.','auth/invalid-email':'El email no es válido.','auth/weak-password':'La contraseña es muy débil (mín. 8 caracteres).','auth/popup-closed-by-user':'Cerraste la ventana antes de terminar.','auth/network-request-failed':'Error de red. Revisa tu conexión.','auth/too-many-requests':'Demasiados intentos. Espera un momento.'})[code]||'Ocurrió un error. Intenta de nuevo.';
     }
 
-    function msg(id, text, type = 'err') {
-      const el = $(id);
-      el.textContent = text;
-      el.className = 'msg ' + type;
-    }
-    function clearMsg(id) { const el=$(id); el.textContent=''; el.className='msg'; }
-
-    function errES(code) {
-      return ({
-        'auth/user-not-found':         'No existe una cuenta con ese email.',
-        'auth/wrong-password':         'Contraseña incorrecta.',
-        'auth/invalid-credential':     'Email o contraseña incorrectos.',
-        'auth/email-already-in-use':   'Ya existe una cuenta con ese email.',
-        'auth/invalid-email':          'El email no es válido.',
-        'auth/weak-password':          'La contraseña es muy débil (mín. 8 caracteres).',
-        'auth/popup-closed-by-user':   'Cerraste la ventana antes de terminar.',
-        'auth/network-request-failed': 'Error de red. Revisa tu conexión.',
-        'auth/too-many-requests':      'Demasiados intentos. Espera un momento.',
-      })[code] || 'Ocurrió un error. Intenta de nuevo.';
+    function fmtCode(raw){
+      const c=(raw||'').replace(/[^A-Z0-9]/g,'').toUpperCase();
+      if(c.length===12) return `${c.slice(0,4)}-${c.slice(4,6)}-${c.slice(6)}`;
+      return c||'—';
     }
 
-    function fmtCode(raw) {
-      const c = (raw||'').replace(/[^A-Z0-9]/g,'').toUpperCase();
-      if (c.length === 12) return `${c.slice(0,4)}-${c.slice(4,6)}-${c.slice(6)}`;
-      return c || '—';
-    }
-
-    // ── Firestore ────────────────────
-    async function saveProfile(user, extra = {}) {
-      const ref  = doc(db, 'bap_users', user.uid);
-      const snap = await getDoc(ref);
-      if (!snap.exists()) {
-        await setDoc(ref, {
-          uid:        user.uid,
-          email:      user.email,
-          name:       user.displayName || extra.name || '',
-          photo:      user.photoURL    || '',
-          created_at: serverTimestamp(),
-          linked_games: extra.code ? { juego_principal: extra.code } : {}
-        });
-      } else if (extra.code && !snap.data().linked_games?.juego_principal) {
-        await updateDoc(ref, { 'linked_games.juego_principal': extra.code });
+    async function saveProfile(user,extra={}){
+      const ref=doc(db,'bap_users',user.uid);
+      const snap=await getDoc(ref);
+      if(!snap.exists()){
+        await setDoc(ref,{uid:user.uid,email:user.email,name:user.displayName||extra.name||'',photo:user.photoURL||'',created_at:serverTimestamp(),linked_games:extra.code?{juego_principal:extra.code}:{}});
+      } else if(extra.code&&!snap.data().linked_games?.juego_principal){
+        await updateDoc(ref,{'linked_games.juego_principal':extra.code});
       }
     }
 
-    // ── Show profile ─────────────────
-    let _uid = '';
-    async function showProfile(user) {
-      _uid = user.uid;
-      const name = user.displayName || user.email.split('@')[0];
+    let _uid='';
+    async function showProfile(user){
+      _uid=user.uid;
+      const name=user.displayName||user.email.split('@')[0];
+      $('p-name').textContent=name;
+      $('p-email').textContent=user.email;
+      $('p-uid').textContent=user.uid.slice(0,16)+'…';
+      const av=$('p-avatar');
+      if(user.photoURL){ av.innerHTML=`<img src="${user.photoURL}" alt="avatar">`; av.style.fontSize='0'; }
+      else { av.textContent=name.charAt(0).toUpperCase(); }
 
-      $('p-name').textContent  = name;
-      $('p-email').textContent = user.email;
-      $('p-uid').textContent   = user.uid.slice(0, 16) + '…';
+      let gameCode='';
+      try{ const snap=await getDoc(doc(db,'bap_users',user.uid)); if(snap.exists()) gameCode=snap.data().linked_games?.juego_principal||''; }catch(e){}
 
-      const av = $('p-avatar');
-      if (user.photoURL) {
-        av.innerHTML = `<img src="${user.photoURL}" alt="avatar">`;
-        av.style.fontSize = '0';
-      } else {
-        av.textContent = name.charAt(0).toUpperCase();
-      }
+      const codeEl=$('p-code'), pill=$('p-code-pill');
+      if(gameCode){ codeEl.textContent=fmtCode(gameCode); pill.textContent='Vinculado'; pill.classList.add('on'); }
+      else{ codeEl.textContent='—'; pill.textContent='Sin código'; pill.classList.remove('on'); }
 
-      let gameCode = '';
-      try {
-        const snap = await getDoc(doc(db, 'bap_users', user.uid));
-        if (snap.exists()) gameCode = snap.data().linked_games?.juego_principal || '';
-      } catch(e) { console.warn('[BAP ID]', e); }
+      // Show auth section with profile
+      $('auth-section').classList.add('visible');
+      $('auth-back-btn').style.display='none';
+      $('view-auth').style.display='none';
+      $('view-profile').style.display='';
 
-      const codeEl = $('p-code');
-      const pill   = $('p-code-pill');
-      if (gameCode) {
-        codeEl.textContent = fmtCode(gameCode);
-        pill.textContent   = 'Vinculado';
-        pill.classList.add('on');
-      } else {
-        codeEl.textContent = '—';
-        pill.textContent   = 'Sin código';
-        pill.classList.remove('on');
-      }
+      try{ localStorage.setItem('bap_id_uid',user.uid); }catch(e){}
 
-      $('view-home').style.display      = 'none';
-      $('view-auth-wrap').style.display  = 'none';
-      $('view-auth').style.display       = 'none';
-      $('view-profile').style.display    = '';
-
-      try { localStorage.setItem('bap_id_uid', user.uid); } catch(e) {}
-
-      if (window.opener && !window.opener.closed) {
-        window.opener.postMessage({
-          type: 'BAP_ID_LOGIN', uid: user.uid,
-          name, email: user.email, gameCode
-        }, '*');
-        setTimeout(() => window.close(), 1800);
+      if(window.opener&&!window.opener.closed){
+        window.opener.postMessage({type:'BAP_ID_LOGIN',uid:user.uid,name,email:user.email,gameCode},'*');
+        setTimeout(()=>window.close(),1800);
       }
     }
 
-    // ── Auth actions ─────────────────
-    async function loginGoogle() {
+    async function loginGoogle(){
       load(true);
-      try {
-        const r = await signInWithPopup(auth, new GoogleAuthProvider());
-        await saveProfile(r.user);
-        await showProfile(r.user);
-      } catch(e) { msg('l-msg', errES(e.code)); }
-      finally { load(false); }
+      try{ const r=await signInWithPopup(auth,new GoogleAuthProvider()); await saveProfile(r.user); await showProfile(r.user); }
+      catch(e){ msg('l-msg',errES(e.code)); } finally{ load(false); }
     }
-
-    async function loginEmail() {
+    async function loginEmail(){
       clearMsg('l-msg');
-      const email = $('l-email').value.trim();
-      const pass  = $('l-pass').value;
-      if (!email || !pass) { msg('l-msg', 'Completa email y contraseña.'); return; }
+      const email=$('l-email').value.trim(), pass=$('l-pass').value;
+      if(!email||!pass){ msg('l-msg','Completa email y contraseña.'); return; }
       load(true);
-      try {
-        const r = await signInWithEmailAndPassword(auth, email, pass);
-        await showProfile(r.user);
-      } catch(e) { msg('l-msg', errES(e.code)); }
-      finally { load(false); }
+      try{ const r=await signInWithEmailAndPassword(auth,email,pass); await showProfile(r.user); }
+      catch(e){ msg('l-msg',errES(e.code)); } finally{ load(false); }
     }
-
-    async function registerEmail() {
+    async function registerEmail(){
       clearMsg('r-msg');
-      const name  = $('r-name').value.trim();
-      const email = $('r-email').value.trim();
-      const pass  = $('r-pass').value;
-      const code  = $('r-code').value.trim();
-      if (!name || !email || !pass)   { msg('r-msg', 'Nombre, email y contraseña son obligatorios.'); return; }
-      if (pass.length < 8)            { msg('r-msg', 'La contraseña debe tener al menos 8 caracteres.'); return; }
-      if (code && code.length !== 12) { msg('r-msg', 'El código debe tener el formato XXXX-XX-XXXX.'); return; }
+      const name=$('r-name').value.trim(),email=$('r-email').value.trim(),pass=$('r-pass').value,code=$('r-code').value.trim();
+      if(!name||!email||!pass){ msg('r-msg','Nombre, email y contraseña son obligatorios.'); return; }
+      if(pass.length<8){ msg('r-msg','La contraseña debe tener al menos 8 caracteres.'); return; }
+      if(code&&code.length!==12){ msg('r-msg','El código debe tener el formato XXXX-XX-XXXX.'); return; }
       load(true);
-      try {
-        const r = await createUserWithEmailAndPassword(auth, email, pass);
-        await updateProfile(r.user, { displayName: name });
-        await saveProfile(r.user, { name, code: code || null });
-        await showProfile(r.user);
-      } catch(e) { msg('r-msg', errES(e.code)); }
-      finally { load(false); }
+      try{ const r=await createUserWithEmailAndPassword(auth,email,pass); await updateProfile(r.user,{displayName:name}); await saveProfile(r.user,{name,code:code||null}); await showProfile(r.user); }
+      catch(e){ msg('r-msg',errES(e.code)); } finally{ load(false); }
     }
-
-    async function forgotPw() {
-      const email = $('l-email').value.trim();
-      if (!email) { msg('l-msg', 'Escribe tu email arriba primero.'); return; }
+    async function forgotPw(){
+      const email=$('l-email').value.trim();
+      if(!email){ msg('l-msg','Escribe tu email arriba primero.'); return; }
       load(true);
-      try {
-        await sendPasswordResetEmail(auth, email);
-        msg('l-msg', '✓ Revisa tu correo para restablecer la contraseña.', 'ok');
-      } catch(e) { msg('l-msg', errES(e.code)); }
-      finally { load(false); }
+      try{ await sendPasswordResetEmail(auth,email); msg('l-msg','✓ Revisa tu correo para restablecer la contraseña.','ok'); }
+      catch(e){ msg('l-msg',errES(e.code)); } finally{ load(false); }
+    }
+    async function doSignOut(){
+      await signOut(auth); _uid='';
+      $('view-profile').style.display='none';
+      $('view-auth').style.display='';
+      $('auth-back-btn').style.display='';
+      $('auth-section').classList.remove('visible');
+      window.scrollTo({top:0,behavior:'smooth'});
+      try{ localStorage.removeItem('bap_id_uid'); }catch(e){}
     }
 
-    async function doSignOut() {
-      await signOut(auth);
-      _uid = '';
-      $('view-profile').style.display   = 'none';
-      $('view-auth-wrap').style.display  = 'none';
-      $('view-auth').style.display       = '';
-      $('view-home').style.display       = '';
-      try { localStorage.removeItem('bap_id_uid'); } catch(e) {}
-    }
+    onAuthStateChanged(auth, user=>{ if(user) showProfile(user); });
 
-    // ── Persist ──────────────────────
-    onAuthStateChanged(auth, user => { if (user) showProfile(user); });
-
-    // ── Expose to inline onclick ──────
-    window.ui = {
-      loginGoogle,
-      loginEmail,
-      registerEmail,
-      forgotPw,
+    window.ui={
+      loginGoogle, loginEmail, registerEmail, forgotPw,
       signOut: doSignOut,
-      setTab(t) {
-        const isL = t === 'login';
-        $('tab-login').style.display    = isL ? '' : 'none';
-        $('tab-register').style.display = isL ? 'none' : '';
-        $('t-login').classList.toggle('active', isL);
-        $('t-reg').classList.toggle('active', !isL);
+      setTab(t){
+        const isL=t==='login';
+        $('tab-login').style.display=isL?'':'none';
+        $('tab-register').style.display=isL?'none':'';
+        $('t-login').classList.toggle('active',isL);
+        $('t-reg').classList.toggle('active',!isL);
+        $('auth-title').textContent=isL?'Bienvenido':'Crea tu BAP ID';
+        $('auth-sub').textContent=isL?'Inicia sesión para continuar.':'Es gratis y tarda menos de un minuto.';
       },
-      togglePw(id, btn) {
-        const el = $(id);
-        el.type = el.type === 'password' ? 'text' : 'password';
-        btn.textContent = el.type === 'password' ? '👁' : '🙈';
+      togglePw(id,btn){ const el=$(id); el.type=el.type==='password'?'text':'password'; btn.textContent=el.type==='password'?'👁':'🙈'; },
+      formatCode(el){ let v=el.value.replace(/[^A-Za-z0-9]/g,'').toUpperCase(); if(v.length>4)v=v.slice(0,4)+'-'+v.slice(4); if(v.length>7)v=v.slice(0,7)+'-'+v.slice(7); el.value=v.slice(0,12); },
+      toggleGplay(){ const n=$('gplay-notice'); n.style.display=n.style.display==='none'?'':'none'; },
+      copyUID(){ if(!_uid)return; navigator.clipboard.writeText(_uid).then(()=>toast('ID copiado ✓')).catch(()=>toast('No se pudo copiar')); },
+      showAuth(tab='login'){
+        $('auth-section').classList.add('visible');
+        $('auth-back-btn').style.display='';
+        $('view-auth').style.display='';
+        $('view-profile').style.display='none';
+        window.ui.setTab(tab);
+        setTimeout(()=>$('auth-section').scrollIntoView({behavior:'smooth',block:'start'}),50);
       },
-      formatCode(el) {
-        let v = el.value.replace(/[^A-Za-z0-9]/g,'').toUpperCase();
-        if (v.length > 4) v = v.slice(0,4)+'-'+v.slice(4);
-        if (v.length > 7) v = v.slice(0,7)+'-'+v.slice(7);
-        el.value = v.slice(0,12);
-      },
-      toggleGplay() {
-        const n = $('gplay-notice');
-        n.style.display = n.style.display === 'none' ? '' : 'none';
-      },
-      copyUID() {
-        if (!_uid) return;
-        navigator.clipboard.writeText(_uid).then(() => toast('ID copiado ✓')).catch(() => toast('No se pudo copiar'));
-      },
-      showHome() {
-        document.getElementById('view-home').style.display    = '';
-        document.getElementById('view-auth-wrap').style.display = 'none';
-        document.getElementById('view-profile').style.display = 'none';
-      },
-      showAuth(tab = 'login') {
-        document.getElementById('view-home').style.display      = 'none';
-        document.getElementById('view-auth-wrap').style.display = '';
-        document.getElementById('view-profile').style.display   = 'none';
-        // set correct tab
-        const isL = tab === 'login';
-        document.getElementById('tab-login').style.display    = isL ? '' : 'none';
-        document.getElementById('tab-register').style.display = isL ? 'none' : '';
-        document.getElementById('t-login').classList.toggle('active', isL);
-        document.getElementById('t-reg').classList.toggle('active', !isL);
+      showLanding(){
+        $('auth-section').classList.remove('visible');
+        window.scrollTo({top:0,behavior:'smooth'});
       }
     };
   </script>
