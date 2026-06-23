@@ -386,7 +386,7 @@
       <img src="https://chibi.iitranq.co.uk/BmBfGROSXFdY.jpg" alt="BAP Studios">
       <span>BAP ID</span>
     </a>
-    <div class="nav-ctas">
+    <div class="nav-ctas" id="nav-ctas">
       <button class="nav-btn ghost" onclick="ui.showAuth('login')">Iniciar sesión</button>
       <button class="nav-btn solid" onclick="ui.showAuth('register')">Crear BAP ID</button>
     </div>
@@ -401,9 +401,8 @@
     <div class="hero-ctas">
       <button class="btn-hero primary" onclick="ui.showAuth('register')">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        Crear BAP ID
+        Crear BAP ID gratis
       </button>
-      <button class="btn-hero secondary" onclick="ui.showAuth('login')">Ya tengo cuenta</button>
     </div>
     <div class="scroll-hint">
       <span>Saber más</span>
@@ -471,6 +470,22 @@
         <span class="product-pill">Activo</span>
       </div>
       <div class="product-card">
+        <div class="product-icon"><img src="https://upload.wikimedia.org/wikipedia/en/6/69/Breadwinners_title.png" alt="Breadwinners" onerror="this.parentElement.innerHTML='🍞'"></div>
+        <div>
+          <div class="product-name">Breadwinners: Bread Dash!</div>
+          <div class="product-desc">Juego · Runner infinito</div>
+        </div>
+        <span class="product-pill soon">Pronto</span>
+      </div>
+      <div class="product-card">
+        <div class="product-icon"><img src="https://upload.wikimedia.org/wikipedia/en/0/0b/Regular_Show_title_card.png" alt="Regular Show" onerror="this.parentElement.innerHTML='🎳'"></div>
+        <div>
+          <div class="product-name">Grudgeball Evolution</div>
+          <div class="product-desc">Juego · Deportes · Regular Show</div>
+        </div>
+        <span class="product-pill soon">Pronto</span>
+      </div>
+      <div class="product-card">
         <div class="product-icon empty">+</div>
         <div>
           <div class="product-name" style="color:var(--t3);">Más próximamente</div>
@@ -506,15 +521,7 @@
     </div>
   </section>
 
-  <!-- ═══════════ CTA BAND ═══════════ -->
-  <section id="cta-band">
-    <h2>¿A qué esperas?</h2>
-    <p>Crea tu BAP ID gratis y protege todo tu progreso hoy.</p>
-    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-      <button class="btn-hero primary" onclick="ui.showAuth('register')">Crear BAP ID gratis</button>
-      <button class="btn-hero secondary" onclick="ui.showAuth('login')">Iniciar sesión</button>
-    </div>
-  </section>
+
 
   <!-- ═══════════ AUTH / PROFILE ═══════════ -->
   <section id="auth-section">
@@ -584,34 +591,40 @@
         </div>
       </div>
 
-      <!-- PROFILE VIEW -->
+      <!-- DASHBOARD / PROFILE VIEW -->
       <div id="view-profile" style="display:none">
-        <div class="prof-wrap">
-          <div class="av-wrap" id="p-avatar">?</div>
-          <p class="prof-name"  id="p-name">—</p>
-          <p class="prof-email" id="p-email">—</p>
-          <div class="uid-chip" onclick="ui.copyUID()" title="Copiar ID">
-            <span class="uid-dot"></span>
-            <span id="p-uid">—</span>
-            <span style="font-size:10px;opacity:.4">⎘</span>
-          </div>
-          <p class="linked-label">Productos vinculados</p>
-          <div class="linked-list">
-            <div class="linked-row">
-              <div class="li-icon"><img src="https://uploads.onecompiler.io/447259qgx/44cxpnfu9/Vaso%20de%20Universo.png" alt=""></div>
-              <div class="li-info"><div class="li-name">Cup O'Clicker</div><div class="li-code" id="p-code">—</div></div>
-              <span class="li-pill" id="p-code-pill">Sin código</span>
-            </div>
-            <div class="linked-row">
-              <div class="li-icon"><img src="https://chibi.iitranq.co.uk/Y1OMxvpQecD2.png?v=2" alt=""></div>
-              <div class="li-info"><div class="li-name">Nova</div><div class="li-code">Chat & comunidades</div></div>
-              <span class="li-pill on">Conectado</span>
+
+        <!-- User header -->
+        <div style="display:flex;align-items:center;gap:16px;padding:28px 0 24px;border-bottom:1px solid var(--b);margin-bottom:28px;">
+          <div class="av-wrap" id="p-avatar" style="width:64px;height:64px;font-size:24px;flex-shrink:0;margin:0;">?</div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:20px;font-weight:900;color:var(--t0);letter-spacing:-.4px;" id="p-name">—</div>
+            <div style="font-size:13px;color:var(--t2);margin-top:2px;" id="p-email">—</div>
+            <div class="uid-chip" onclick="ui.copyUID()" style="margin:8px 0 0;display:inline-flex;">
+              <span class="uid-dot"></span>
+              <span id="p-uid">—</span>
+              <span style="font-size:10px;opacity:.4">⎘</span>
             </div>
           </div>
-          <div style="display:flex;flex-direction:column;gap:7px;">
-            <button class="ghost-btn">⚙ Gestionar cuenta</button>
-            <button class="signout-btn" onclick="ui.signOut()">Cerrar sesión</button>
-          </div>
+          <button class="signout-btn" onclick="ui.signOut()" style="flex-shrink:0;font-size:12px;padding:7px 14px;border:1px solid var(--b);border-radius:8px;color:var(--t3);">Salir</button>
+        </div>
+
+        <!-- Connected games -->
+        <div style="margin-bottom:32px;">
+          <p style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:14px;">Juegos y apps vinculados</p>
+          <div id="dash-connected" style="display:flex;flex-direction:column;gap:8px;"></div>
+          <div id="dash-connected-empty" style="display:none;font-size:13px;color:var(--t3);padding:16px 0;">Ningún producto vinculado aún.</div>
+        </div>
+
+        <!-- Unconnected games -->
+        <div>
+          <p style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:14px;">Productos disponibles</p>
+          <div id="dash-available" style="display:flex;flex-direction:column;gap:8px;"></div>
+        </div>
+
+        <!-- Manage -->
+        <div style="margin-top:28px;padding-top:20px;border-top:1px solid var(--b);">
+          <button class="ghost-btn" style="margin-bottom:8px;">⚙ Gestionar cuenta</button>
         </div>
       </div>
 
@@ -686,6 +699,125 @@
       }
     }
 
+    // ── Catalog of all BAP products ──
+    const ALL_PRODUCTS = [
+      {
+        key: 'juego_principal',
+        name: "Cup O'Clicker",
+        desc: 'Juego · Sanjay and Craig',
+        icon: 'https://uploads.onecompiler.io/447259qgx/44cxpnfu9/Vaso%20de%20Universo.png',
+        hasCode: true
+      },
+      {
+        key: 'nova',
+        name: 'Nova',
+        desc: 'App · Chat y comunidades',
+        icon: 'https://chibi.iitranq.co.uk/Y1OMxvpQecD2.png?v=2',
+        hasCode: false,
+        alwaysConnected: true
+      },
+      {
+        key: null,   // sin BAP ID aún
+        name: 'Breadwinners: Bread Dash!',
+        desc: 'Juego · Runner infinito',
+        icon: 'https://upload.wikimedia.org/wikipedia/en/6/69/Breadwinners_title.png',
+        hasCode: false,
+        comingSoon: true,
+        url: '#'
+      },
+      {
+        key: null,
+        name: 'Regular Show Grudgeball Evolution',
+        desc: 'Juego · Deportes · Regular Show',
+        icon: 'https://upload.wikimedia.org/wikipedia/en/0/0b/Regular_Show_title_card.png',
+        hasCode: false,
+        comingSoon: true,
+        url: '#'
+      }
+    ];
+
+    function renderDashboard(linkedGames) {
+      const connEl  = document.getElementById('dash-connected');
+      const availEl = document.getElementById('dash-available');
+      const emptyEl = document.getElementById('dash-connected-empty');
+      connEl.innerHTML  = '';
+      availEl.innerHTML = '';
+
+      const connected   = [];
+      const unconnected = [];
+      const soon        = [];
+
+      ALL_PRODUCTS.forEach(p => {
+        if (p.comingSoon) { soon.push(p); return; }
+        const code = linkedGames[p.key] || '';
+        if (p.alwaysConnected || code) connected.push({...p, code});
+        else unconnected.push(p);
+      });
+
+      emptyEl.style.display = connected.length ? 'none' : '';
+
+      connected.forEach(p => {
+        const row = document.createElement('div');
+        row.className = 'linked-row';
+        const codeStr = p.hasCode && p.code
+          ? '<div class="li-code">'+fmtCode(p.code)+'</div>' : '';
+        row.innerHTML =
+          '<div class="li-icon"><img src="'+p.icon+'" alt="'+p.name+'"></div>'
+          +'<div class="li-info">'
+            +'<div class="li-name">'+p.name+'</div>'
+            +'<div style="font-size:11px;color:var(--t2);">'+p.desc+'</div>'
+            +codeStr
+          +'</div>'
+          +'<span class="li-pill on">✓ Vinculado</span>';
+        connEl.appendChild(row);
+      });
+
+      // Unconnected (BAP ID compatible but not linked yet)
+      if (unconnected.length === 0 && soon.length === 0) {
+        availEl.innerHTML = '<div style="font-size:13px;color:var(--t3);padding:16px 0;">¡Todos los productos están vinculados! 🎉</div>';
+      } else {
+        unconnected.forEach(p => {
+          const row = document.createElement('div');
+          row.className = 'linked-row';
+          row.style.opacity = '.7';
+          row.innerHTML =
+            '<div class="li-icon" style="filter:grayscale(1);opacity:.5;"><img src="'+p.icon+'" alt="'+p.name+'"></div>'
+            +'<div class="li-info">'
+              +'<div class="li-name" style="color:var(--t2);">'+p.name+'</div>'
+              +'<div style="font-size:11px;color:var(--t3);">'+p.desc+'</div>'
+              +'<div style="font-size:11px;color:var(--t3);margin-top:2px;">Abre el juego y vincula desde Ajustes</div>'
+            +'</div>'
+            +'<span class="li-pill" style="color:var(--t3);">No vinculado</span>';
+          availEl.appendChild(row);
+        });
+
+        // Coming soon games (no BAP ID yet)
+        if (soon.length) {
+          const label = document.createElement('p');
+          label.style.cssText = 'font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin:18px 0 10px;';
+          label.textContent = 'Próximamente en BAP ID';
+          availEl.appendChild(label);
+
+          soon.forEach(p => {
+            const row = document.createElement('div');
+            row.className = 'linked-row';
+            row.style.opacity = '.5';
+            const linkStart = p.url && p.url !== '#' ? '<a href="'+p.url+'" target="_blank" style="text-decoration:none;display:contents;">' : '';
+            const linkEnd   = p.url && p.url !== '#' ? '</a>' : '';
+            row.innerHTML = linkStart
+              +'<div class="li-icon" style="filter:grayscale(1);opacity:.6;"><img src="'+p.icon+'" alt="'+p.name+'" onerror="this.parentElement.textContent=\'🎮\'"></div>'
+              +'<div class="li-info">'
+                +'<div class="li-name" style="color:var(--t3);">'+p.name+'</div>'
+                +'<div style="font-size:11px;color:var(--t3);">'+p.desc+'</div>'
+              +'</div>'
+              +'<span class="li-pill soon" style="color:var(--t3);border-color:var(--b);">Pronto</span>'
+              +linkEnd;
+            availEl.appendChild(row);
+          });
+        }
+      }
+    }
+
     let _uid='';
     async function showProfile(user){
       _uid=user.uid;
@@ -697,12 +829,13 @@
       if(user.photoURL){ av.innerHTML=`<img src="${user.photoURL}" alt="avatar">`; av.style.fontSize='0'; }
       else { av.textContent=name.charAt(0).toUpperCase(); }
 
-      let gameCode='';
-      try{ const snap=await getDoc(doc(db,'bap_users',user.uid)); if(snap.exists()) gameCode=snap.data().linked_games?.juego_principal||''; }catch(e){}
+      let linkedGames={};
+      try{
+        const snap=await getDoc(doc(db,'bap_users',user.uid));
+        if(snap.exists()) linkedGames=snap.data().linked_games||{};
+      }catch(e){}
 
-      const codeEl=$('p-code'), pill=$('p-code-pill');
-      if(gameCode){ codeEl.textContent=fmtCode(gameCode); pill.textContent='Vinculado'; pill.classList.add('on'); }
-      else{ codeEl.textContent='—'; pill.textContent='Sin código'; pill.classList.remove('on'); }
+      renderDashboard(linkedGames);
 
       // Show auth section with profile
       $('auth-section').classList.add('visible');
@@ -710,9 +843,23 @@
       $('view-auth').style.display='none';
       $('view-profile').style.display='';
 
+      // Update nav — avoid nested backticks (syntax error)
+      const navCtas=$('nav-ctas');
+      const navName=user.displayName||user.email.split('@')[0];
+      const navAvatar=user.photoURL
+        ? '<img src="'+user.photoURL+'" style="width:100%;height:100%;object-fit:cover;">'
+        : navName.charAt(0).toUpperCase();
+      navCtas.innerHTML=
+        '<button class="nav-btn ghost" onclick="ui.showDashboard()" style="display:flex;align-items:center;gap:8px;">'
+        +'<div style="width:22px;height:22px;border-radius:50%;background:var(--s3);border:1px solid var(--b2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;overflow:hidden;flex-shrink:0;">'+navAvatar+'</div>'
+        +navName.split(' ')[0]
+        +'</button>'
+        +'<button class="nav-btn solid" onclick="ui.showDashboard()">Mi BAP ID</button>';
+
       try{ localStorage.setItem('bap_id_uid',user.uid); }catch(e){}
 
       if(window.opener&&!window.opener.closed){
+        const gameCode=linkedGames.juego_principal||'';
         window.opener.postMessage({type:'BAP_ID_LOGIN',uid:user.uid,name,email:user.email,gameCode},'*');
         setTimeout(()=>window.close(),1800);
       }
@@ -754,6 +901,10 @@
       $('view-auth').style.display='';
       $('auth-back-btn').style.display='';
       $('auth-section').classList.remove('visible');
+      // Reset nav — string concat to avoid quote/backtick conflicts
+      $('nav-ctas').innerHTML=
+        '<button class="nav-btn ghost" onclick="ui.showAuth(\'login\')">Iniciar sesi\u00f3n</button>'
+        +'<button class="nav-btn solid" onclick="ui.showAuth(\'register\')">Crear BAP ID</button>';
       window.scrollTo({top:0,behavior:'smooth'});
       try{ localStorage.removeItem('bap_id_uid'); }catch(e){}
     }
@@ -776,6 +927,13 @@
       formatCode(el){ let v=el.value.replace(/[^A-Za-z0-9]/g,'').toUpperCase(); if(v.length>4)v=v.slice(0,4)+'-'+v.slice(4); if(v.length>7)v=v.slice(0,7)+'-'+v.slice(7); el.value=v.slice(0,12); },
       toggleGplay(){ const n=$('gplay-notice'); n.style.display=n.style.display==='none'?'':'none'; },
       copyUID(){ if(!_uid)return; navigator.clipboard.writeText(_uid).then(()=>toast('ID copiado ✓')).catch(()=>toast('No se pudo copiar')); },
+      showDashboard(){
+        $('auth-section').classList.add('visible');
+        $('auth-back-btn').style.display='none';
+        $('view-auth').style.display='none';
+        $('view-profile').style.display='';
+        setTimeout(()=>$('auth-section').scrollIntoView({behavior:'smooth',block:'start'}),50);
+      },
       showAuth(tab='login'){
         $('auth-section').classList.add('visible');
         $('auth-back-btn').style.display='';
