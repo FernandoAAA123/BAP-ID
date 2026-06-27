@@ -479,12 +479,12 @@
         <span class="product-pill soon">Pronto</span>
       </div>
       <div class="product-card">
-        <div class="product-icon"><img src="https://upload.wikimedia.org/wikipedia/en/0/0b/Regular_Show_title_card.png" alt="Regular Show" onerror="this.parentElement.innerHTML='🎳'"></div>
+        <div class="product-icon"><img src="https://chibi.iitranq.co.uk/mw7fgng37rnJ.png" alt="Grudgeball Evolution"></div>
         <div>
           <div class="product-name">Grudgeball Evolution</div>
           <div class="product-desc">Juego · Deportes · Regular Show</div>
         </div>
-        <span class="product-pill soon">Pronto</span>
+        <span class="product-pill">Activo</span>
       </div>
       <div class="product-card">
         <div class="product-icon empty">+</div>
@@ -707,7 +707,8 @@
         name: "Cup O'Clicker",
         desc: 'Juego · Sanjay and Craig',
         icon: 'https://uploads.onecompiler.io/447259qgx/44cxpnfu9/Vaso%20de%20Universo.png',
-        hasCode: true
+        hasCode: true,
+        url: 'https://fernandoaaa123.github.io/sanjay-and-craig-cup-o-clicker/'
       },
       {
         key: 'nova',
@@ -715,7 +716,8 @@
         desc: 'App · Chat y comunidades',
         icon: 'https://chibi.iitranq.co.uk/Y1OMxvpQecD2.png?v=2',
         hasCode: false,
-        alwaysConnected: true
+        alwaysConnected: true,
+        url: 'https://fernandoaaa123.github.io/nova/'
       },
       {
         key: null,   // sin BAP ID aún
@@ -727,13 +729,13 @@
         url: '#'
       },
       {
-        key: null,
+        key: 'grudgeball',
         name: 'Regular Show Grudgeball Evolution',
         desc: 'Juego · Deportes · Regular Show',
-        icon: 'https://upload.wikimedia.org/wikipedia/en/0/0b/Regular_Show_title_card.png',
+        icon: 'https://chibi.iitranq.co.uk/mw7fgng37rnJ.png',
         hasCode: false,
-        comingSoon: true,
-        url: '#'
+        alwaysConnected: true,
+        url: 'https://fernandoaaa123.github.io/regular-show-grudgeball-evolution/'
       }
     ];
 
@@ -762,14 +764,17 @@
         row.className = 'linked-row';
         const codeStr = p.hasCode && p.code
           ? '<div class="li-code">'+fmtCode(p.code)+'</div>' : '';
+        const openBtn = p.url && p.url !== '#'
+          ? '<a href="'+p.url+'" target="_blank" rel="noopener" class="li-pill on" style="text-decoration:none;cursor:pointer;">▶ Abrir</a>'
+          : '<span class="li-pill on">✓ Vinculado</span>';
         row.innerHTML =
-          '<div class="li-icon"><img src="'+p.icon+'" alt="'+p.name+'"></div>'
+          '<div class="li-icon"><img src="'+p.icon+'" alt="'+p.name+'" onerror="this.style.display=\'none\';this.parentElement.textContent=\'🎮\';"></div>'
           +'<div class="li-info">'
             +'<div class="li-name">'+p.name+'</div>'
             +'<div style="font-size:11px;color:var(--t2);">'+p.desc+'</div>'
             +codeStr
           +'</div>'
-          +'<span class="li-pill on">✓ Vinculado</span>';
+          +openBtn;
         connEl.appendChild(row);
       });
 
