@@ -43,6 +43,10 @@
     .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
     .nav-logo img{width:32px;height:32px;border-radius:8px;object-fit:cover;}
     .nav-logo span{font-size:15px;font-weight:800;color:var(--t0);letter-spacing:-.3px;}
+    .nav-links{display:flex;gap:28px;}
+    .nav-links a{color:var(--t2);text-decoration:none;font-size:13px;font-weight:600;transition:color .12s;}
+    .nav-links a:hover{color:var(--t0);}
+    @media(max-width:760px){.nav-links{display:none;}}
     .nav-ctas{display:flex;gap:8px;}
     .nav-btn{
       padding:7px 18px;border-radius:8px;font-size:13px;font-weight:700;
@@ -215,10 +219,14 @@
     }
     #cta-band p{font-size:16px;color:var(--t2);margin-bottom:2.5rem;}
 
+    /* ─── LANDING WRAPPER ─── */
+    #landing-view.hidden{display:none;}
+
     /* ─── AUTH SECTION ─── */
     #auth-section{
       background:var(--s1);
-      padding:100px 5%;
+      min-height:100vh;
+      padding:130px 5% 60px;
       display:none; /* shown when user clicks CTA */
     }
     #auth-section.visible{display:block;}
@@ -383,16 +391,23 @@
 
   <!-- ═══════════ NAV ═══════════ -->
   <nav>
-    <a class="nav-logo" href="#">
+    <a class="nav-logo" href="#home" onclick="ui.showLanding();return true;">
       <img src="https://chibi.iitranq.co.uk/BmBfGROSXFdY.jpg" alt="BAP Studios">
       <span>BAP ID</span>
     </a>
+    <div class="nav-links" id="nav-links">
+      <a href="#home" onclick="ui.showLanding()">Inicio</a>
+      <a href="#features">Características</a>
+      <a href="#products">Productos</a>
+      <a href="#how">Cómo funciona</a>
+    </div>
     <div class="nav-ctas" id="nav-ctas">
       <button class="nav-btn ghost" onclick="ui.showAuth('login')">Iniciar sesión</button>
       <button class="nav-btn solid" onclick="ui.showAuth('register')">Crear BAP ID</button>
     </div>
   </nav>
 
+  <main id="landing-view">
   <!-- ═══════════ HERO ═══════════ -->
   <section class="hero" id="home">
     <div class="hero-badge"><span class="hero-badge-dot"></span>Disponible ahora</div>
@@ -521,8 +536,7 @@
       </div>
     </div>
   </section>
-
-
+  </main>
 
   <!-- ═══════════ AUTH / PROFILE ═══════════ -->
   <section id="auth-section">
@@ -844,10 +858,11 @@
       renderDashboard(linkedGames);
 
       // Show auth section with profile
-      $('auth-section').classList.add('visible');
+      _setAppMode(true);
       $('auth-back-btn').style.display='none';
       $('view-auth').style.display='none';
       $('view-profile').style.display='';
+      location.hash='dashboard';
 
       // Update nav — avoid nested backticks (syntax error)
       const navCtas=$('nav-ctas');
@@ -908,6 +923,8 @@
       $('view-auth').style.display='';
       $('auth-back-btn').style.display='';
       $('auth-section').classList.remove('visible');
+      _setAppMode(false);
+      location.hash='home';
       // Reset nav — string concat to avoid quote/backtick conflicts
       $('nav-ctas').innerHTML=
         _pwaInstallBtnHtml()
@@ -960,25 +977,43 @@
       toggleGplay(){ const n=$('gplay-notice'); n.style.display=n.style.display==='none'?'':'none'; },
       copyUID(){ if(!_uid)return; navigator.clipboard.writeText(_uid).then(()=>toast('ID copiado ✓')).catch(()=>toast('No se pudo copiar')); },
       showDashboard(){
-        $('auth-section').classList.add('visible');
+        _setAppMode(true);
         $('auth-back-btn').style.display='none';
         $('view-auth').style.display='none';
         $('view-profile').style.display='';
-        setTimeout(()=>$('auth-section').scrollIntoView({behavior:'smooth',block:'start'}),50);
+        location.hash='dashboard';
+        window.scrollTo({top:0,behavior:'smooth'});
       },
       showAuth(tab='login'){
-        $('auth-section').classList.add('visible');
+        _setAppMode(true);
         $('auth-back-btn').style.display='';
         $('view-auth').style.display='';
         $('view-profile').style.display='none';
         window.ui.setTab(tab);
-        setTimeout(()=>$('auth-section').scrollIntoView({behavior:'smooth',block:'start'}),50);
+        location.hash=tab;
+        window.scrollTo({top:0,behavior:'smooth'});
       },
       showLanding(){
-        $('auth-section').classList.remove('visible');
+        _setAppMode(false);
+        location.hash='home';
         window.scrollTo({top:0,behavior:'smooth'});
       }
     };
+
+    // ── Modo "app" vs landing — solo uno visible a la vez, como un sitio profesional real ──
+    function _setAppMode(isApp){
+      $('landing-view').classList.toggle('hidden',isApp);
+      const links=$('nav-links'); if(links) links.style.display=isApp?'none':'';
+      $('auth-section').classList.toggle('visible',isApp);
+    }
+
+    // ── Ruteo simple por hash: permite refrescar/compartir #login, #register o #dashboard ──
+    (function routeFromHash(){
+      const h=(location.hash||'').replace('#','');
+      if(h==='login'||h==='register') window.ui.showAuth(h);
+      // '#dashboard' se resuelve solo si onAuthStateChanged confirma sesión (showProfile la abre);
+      // si no hay sesión, se queda en la landing — no forzamos showDashboard() sin user.
+    })();
   </script>
 
 </body>
