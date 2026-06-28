@@ -221,6 +221,37 @@
 
     /* ─── LANDING WRAPPER ─── */
     #landing-view.hidden{display:none;}
+    body.no-scroll{overflow:hidden;}
+
+    /* ─── MODAL OVERLAY (Dashboard, Catálogo, Soporte — todos comparten este look) ─── */
+    .modal-overlay{
+      position:fixed;inset:0;z-index:1000;
+      background:rgba(5,5,10,.78);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+      display:flex;align-items:center;justify-content:center;padding:20px;
+      opacity:0;pointer-events:none;transition:opacity .22s ease;
+    }
+    .modal-overlay.open{opacity:1;pointer-events:auto;}
+    .modal-panel{
+      background:var(--s1);border:1px solid var(--b);border-radius:20px;
+      max-width:480px;width:100%;max-height:88vh;overflow-y:auto;
+      padding:28px 24px 24px;position:relative;
+      transform:translateY(24px) scale(.96);transition:transform .25s ease;
+      box-shadow:0 30px 80px rgba(0,0,0,.55);
+    }
+    .modal-overlay.open .modal-panel{transform:translateY(0) scale(1);}
+    .modal-panel.wide{max-width:640px;}
+    .modal-close{
+      position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;
+      background:var(--s3);border:1px solid var(--b2);display:flex;align-items:center;justify-content:center;
+      cursor:pointer;color:var(--t2);transition:color .12s,background .12s;
+    }
+    .modal-close:hover{color:var(--t0);background:var(--s2);}
+    .modal-title{font-size:19px;font-weight:900;color:var(--t0);letter-spacing:-.3px;margin-bottom:4px;}
+    .modal-sub{font-size:13px;color:var(--t2);margin-bottom:24px;}
+    .faq-item{padding:16px 0;border-bottom:1px solid var(--b);}
+    .faq-item:last-child{border-bottom:none;}
+    .faq-q{font-size:14px;font-weight:700;color:var(--t0);margin-bottom:6px;}
+    .faq-a{font-size:13px;color:var(--t2);line-height:1.6;}
 
     /* ─── AUTH SECTION ─── */
     #auth-section{
@@ -396,10 +427,9 @@
       <span>BAP ID</span>
     </a>
     <div class="nav-links" id="nav-links">
-      <a href="#home" onclick="ui.showLanding()">Inicio</a>
-      <a href="#features">Características</a>
-      <a href="#products">Productos</a>
-      <a href="#how">Cómo funciona</a>
+      <a href="javascript:void(0)" onclick="ui.openMyGames()">Mis juegos</a>
+      <a href="javascript:void(0)" onclick="ui.showCatalog()">Catálogo</a>
+      <a href="javascript:void(0)" onclick="ui.showSupport()">Soporte</a>
     </div>
     <div class="nav-ctas" id="nav-ctas">
       <button class="nav-btn ghost" onclick="ui.showAuth('login')">Iniciar sesión</button>
@@ -434,27 +464,27 @@
     </div>
     <div class="bento">
       <div class="bento-card big">
-        <div class="bento-icon">🛡️</div>
+        <div class="bento-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
         <div class="bento-title">Protege tus partidas</div>
         <div class="bento-text">Vincula tu cuenta a BAP ID y nunca pierdas tu progreso. Reinstala, cambia de dispositivo o recupera una cuenta perdida — siempre vuelves a donde lo dejaste.</div>
       </div>
       <div class="bento-card">
-        <div class="bento-icon">🔗</div>
+        <div class="bento-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 1 1 0 10h-2"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div>
         <div class="bento-title">Un login para todo</div>
         <div class="bento-text">Conecta todos los juegos y apps de BAP Studios con una sola cuenta. Crea BAP ID en uno y vincula el resto en segundos.</div>
       </div>
       <div class="bento-card">
-        <div class="bento-icon">📱</div>
+        <div class="bento-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
         <div class="bento-title">Multi-dispositivo</div>
         <div class="bento-text">Juega desde tu teléfono, tablet o cualquier dispositivo compatible. Tu sesión te sigue a donde vayas.</div>
       </div>
       <div class="bento-card">
-        <div class="bento-icon">👥</div>
+        <div class="bento-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
         <div class="bento-title">Múltiples cuentas</div>
         <div class="bento-text">¿Quieres un perfil diferente? Crea varios BAP ID y cambia entre ellos fácilmente desde los ajustes de cada app.</div>
       </div>
       <div class="bento-card">
-        <div class="bento-icon">⚡</div>
+        <div class="bento-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
         <div class="bento-title">Gratis y rápido</div>
         <div class="bento-text">Crear tu BAP ID es completamente gratis. Solo necesitas un email — en menos de un minuto estás listo.</div>
       </div>
@@ -585,7 +615,7 @@
         <!-- LOGIN -->
         <div id="tab-login">
           <div class="field"><label>Email</label><input type="email" id="l-email" placeholder="tu@email.com" autocomplete="email" onkeydown="if(event.key==='Enter')document.getElementById('l-pass').focus()"></div>
-          <div class="field"><label>Contraseña</label><div class="pw-wrap"><input type="password" id="l-pass" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')ui.loginEmail()"><button class="pw-eye" type="button" onclick="ui.togglePw('l-pass',this)" tabindex="-1">👁</button></div></div>
+          <div class="field"><label>Contraseña</label><div class="pw-wrap"><input type="password" id="l-pass" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')ui.loginEmail()"><button class="pw-eye" type="button" onclick="ui.togglePw('l-pass',this)" tabindex="-1"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div></div>
           <div class="msg" id="l-msg"></div>
           <button class="cta-btn" onclick="ui.loginEmail()">Iniciar sesión</button>
           <div class="link-row"><a onclick="ui.forgotPw()">¿Olvidaste tu contraseña?</a></div>
@@ -595,7 +625,7 @@
         <div id="tab-register" style="display:none">
           <div class="field"><label>Nombre</label><input type="text" id="r-name" placeholder="Tu nombre" autocomplete="name"></div>
           <div class="field"><label>Email</label><input type="email" id="r-email" placeholder="tu@email.com" autocomplete="email"></div>
-          <div class="field"><label>Contraseña</label><div class="pw-wrap"><input type="password" id="r-pass" placeholder="Mínimo 8 caracteres" autocomplete="new-password"><button class="pw-eye" type="button" onclick="ui.togglePw('r-pass',this)" tabindex="-1">👁</button></div></div>
+          <div class="field"><label>Contraseña</label><div class="pw-wrap"><input type="password" id="r-pass" placeholder="Mínimo 8 caracteres" autocomplete="new-password"><button class="pw-eye" type="button" onclick="ui.togglePw('r-pass',this)" tabindex="-1"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div></div>
           <div class="field">
             <label>Código del juego <span style="color:var(--t3);font-weight:400">(opcional)</span></label>
             <input type="text" id="r-code" class="mono-input" placeholder="XXXX-XX-XXXX" maxlength="12" oninput="ui.formatCode(this)">
@@ -606,45 +636,134 @@
         </div>
       </div>
 
-      <!-- DASHBOARD / PROFILE VIEW -->
-      <div id="view-profile" style="display:none">
+    </div>
+  </section>
 
-        <!-- User header -->
-        <div style="display:flex;align-items:center;gap:16px;padding:28px 0 24px;border-bottom:1px solid var(--b);margin-bottom:28px;">
-          <div class="av-wrap" id="p-avatar" style="width:64px;height:64px;font-size:24px;flex-shrink:0;margin:0;">?</div>
-          <div style="flex:1;min-width:0;">
-            <div style="font-size:20px;font-weight:900;color:var(--t0);letter-spacing:-.4px;" id="p-name">—</div>
-            <div style="font-size:13px;color:var(--t2);margin-top:2px;" id="p-email">—</div>
-            <div class="uid-chip" onclick="ui.copyUID()" style="margin:8px 0 0;display:inline-flex;">
-              <span class="uid-dot"></span>
-              <span id="p-uid">—</span>
-              <span style="font-size:10px;opacity:.4">⎘</span>
-            </div>
+  <!-- ═══════════ DASHBOARD (overlay tipo modal, NO es una sección de la landing) ═══════════ -->
+  <div class="modal-overlay" id="dashboard-overlay">
+    <div class="modal-panel">
+      <button class="modal-close" onclick="ui.closeDashboard()" aria-label="Cerrar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+
+      <!-- User header -->
+      <div style="display:flex;align-items:center;gap:16px;padding:4px 0 24px;border-bottom:1px solid var(--b);margin-bottom:28px;">
+        <div class="av-wrap" id="p-avatar" style="width:64px;height:64px;font-size:24px;flex-shrink:0;margin:0;">?</div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:20px;font-weight:900;color:var(--t0);letter-spacing:-.4px;" id="p-name">—</div>
+          <div style="font-size:13px;color:var(--t2);margin-top:2px;" id="p-email">—</div>
+          <div class="uid-chip" onclick="ui.copyUID()" style="margin:8px 0 0;display:inline-flex;">
+            <span class="uid-dot"></span>
+            <span id="p-uid">—</span>
+            <span style="font-size:10px;opacity:.4">⎘</span>
           </div>
-          <button class="signout-btn" onclick="ui.signOut()" style="flex-shrink:0;font-size:12px;padding:7px 14px;border:1px solid var(--b);border-radius:8px;color:var(--t3);">Salir</button>
-        </div>
-
-        <!-- Connected games -->
-        <div style="margin-bottom:32px;">
-          <p style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:14px;">Juegos y apps vinculados</p>
-          <div id="dash-connected" style="display:flex;flex-direction:column;gap:8px;"></div>
-          <div id="dash-connected-empty" style="display:none;font-size:13px;color:var(--t3);padding:16px 0;">Ningún producto vinculado aún.</div>
-        </div>
-
-        <!-- Unconnected games -->
-        <div>
-          <p style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:14px;">Productos disponibles</p>
-          <div id="dash-available" style="display:flex;flex-direction:column;gap:8px;"></div>
-        </div>
-
-        <!-- Manage -->
-        <div style="margin-top:28px;padding-top:20px;border-top:1px solid var(--b);">
-          <button class="ghost-btn" style="margin-bottom:8px;">⚙ Gestionar cuenta</button>
         </div>
       </div>
 
+      <!-- Connected games -->
+      <div style="margin-bottom:32px;">
+        <p style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:14px;">Juegos y apps vinculados</p>
+        <div id="dash-connected" style="display:flex;flex-direction:column;gap:8px;"></div>
+        <div id="dash-connected-empty" style="display:none;font-size:13px;color:var(--t3);padding:16px 0;">Ningún producto vinculado aún.</div>
+      </div>
+
+      <!-- Unconnected games -->
+      <div>
+        <p style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:14px;">Productos disponibles</p>
+        <div id="dash-available" style="display:flex;flex-direction:column;gap:8px;"></div>
+      </div>
+
+      <!-- Manage -->
+      <div style="margin-top:28px;padding-top:20px;border-top:1px solid var(--b);">
+        <button class="ghost-btn" style="margin-bottom:8px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Gestionar cuenta</button>
+        <button class="ghost-btn" onclick="ui.signOut()" style="color:var(--t3);">Cerrar sesión</button>
+      </div>
     </div>
-  </section>
+  </div>
+
+  <!-- ═══════════ CATÁLOGO (overlay tipo modal) ═══════════ -->
+  <div class="modal-overlay" id="catalog-overlay">
+    <div class="modal-panel wide">
+      <button class="modal-close" onclick="ui.closeCatalog()" aria-label="Cerrar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="modal-title">Catálogo de BAP Studios</div>
+      <div class="modal-sub">Un solo BAP ID funciona en todos estos juegos y apps.</div>
+      <div class="products-grid">
+        <div class="product-card">
+          <div class="product-icon"><img src="https://uploads.onecompiler.io/447259qgx/44cxpnfu9/Vaso%20de%20Universo.png" alt="Cup O'Clicker"></div>
+          <div>
+            <div class="product-name">Cup O'Clicker</div>
+            <div class="product-desc">Juego · Sanjay and Craig</div>
+          </div>
+          <span class="product-pill">Activo</span>
+        </div>
+        <div class="product-card">
+          <div class="product-icon"><img src="https://chibi.iitranq.co.uk/Y1OMxvpQecD2.png?v=2" alt="Nova"></div>
+          <div>
+            <div class="product-name">Nova</div>
+            <div class="product-desc">App · Chat y comunidades</div>
+          </div>
+          <span class="product-pill">Activo</span>
+        </div>
+        <div class="product-card">
+          <div class="product-icon"><img src="https://upload.wikimedia.org/wikipedia/en/6/69/Breadwinners_title.png" alt="Breadwinners" onerror="this.parentElement.innerHTML='🍞'"></div>
+          <div>
+            <div class="product-name">Breadwinners: Bread Dash!</div>
+            <div class="product-desc">Juego · Runner infinito</div>
+          </div>
+          <span class="product-pill soon">Pronto</span>
+        </div>
+        <div class="product-card">
+          <div class="product-icon"><img src="https://chibi.iitranq.co.uk/mw7fgng37rnJ.png" alt="Grudgeball Evolution"></div>
+          <div>
+            <div class="product-name">Grudgeball Evolution</div>
+            <div class="product-desc">Juego · Deportes · Regular Show</div>
+          </div>
+          <span class="product-pill">Activo</span>
+        </div>
+        <div class="product-card">
+          <div class="product-icon empty">+</div>
+          <div>
+            <div class="product-name" style="color:var(--t3);">Más próximamente</div>
+            <div class="product-desc">Nuevos juegos y apps</div>
+          </div>
+          <span class="product-pill soon">Pronto</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ SOPORTE (overlay tipo modal) ═══════════ -->
+  <div class="modal-overlay" id="support-overlay">
+    <div class="modal-panel">
+      <button class="modal-close" onclick="ui.closeSupport()" aria-label="Cerrar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="modal-title">Soporte</div>
+      <div class="modal-sub">Preguntas frecuentes sobre tu BAP ID.</div>
+      <div class="faq-item">
+        <div class="faq-q">Olvidé mi contraseña, ¿qué hago?</div>
+        <div class="faq-a">En la pantalla de inicio de sesión toca "¿Olvidaste tu contraseña?" e ingresa tu email. Te llegará un link para restablecerla.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">¿Cómo vinculo un juego a mi BAP ID?</div>
+        <div class="faq-a">Algunos juegos se conectan automáticamente al iniciar sesión ahí con tu cuenta. Otros usan un código de 12 caracteres que generas dentro del juego y pegas al crear o entrar a tu BAP ID.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">¿Puedo tener varias cuentas de BAP ID?</div>
+        <div class="faq-a">Sí. Cierra sesión y crea o inicia sesión con otra cuenta cuando quieras. Cada una guarda su propio progreso.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">¿Dónde se guarda mi progreso?</div>
+        <div class="faq-a">En la nube, asociado a tu BAP ID. Si cambias de dispositivo o reinstalas un juego, solo inicia sesión de nuevo para recuperarlo.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">¿Necesitas más ayuda?</div>
+        <div class="faq-a">Escríbenos y te ayudamos con cualquier problema de tu cuenta.</div>
+      </div>
+    </div>
+  </div>
 
   <!-- ═══════════ FOOTER ═══════════ -->
   <footer>
@@ -688,10 +807,10 @@
 
     let _toastT;
     function toast(msg, dur=2400){
-      const t=$('toast'); t.textContent=msg; t.classList.add('show');
+      const t=$('toast'); t.innerHTML=msg; t.classList.add('show');
       clearTimeout(_toastT); _toastT=setTimeout(()=>t.classList.remove('show'),dur);
     }
-    function msg(id,text,type='err'){ const el=$(id); el.textContent=text; el.className='msg '+type; }
+    function msg(id,text,type='err'){ const el=$(id); el.innerHTML=text; el.className='msg '+type; }
     function clearMsg(id){ const el=$(id); el.textContent=''; el.className='msg'; }
 
     function errES(code){
@@ -779,10 +898,10 @@
         const codeStr = p.hasCode && p.code
           ? '<div class="li-code">'+fmtCode(p.code)+'</div>' : '';
         const openBtn = p.url && p.url !== '#'
-          ? '<a href="'+p.url+'" target="_blank" rel="noopener" class="li-pill on" style="text-decoration:none;cursor:pointer;">▶ Abrir</a>'
-          : '<span class="li-pill on">✓ Vinculado</span>';
+          ? '<a href="'+p.url+'" target="_blank" rel="noopener" class="li-pill on" style="text-decoration:none;cursor:pointer;"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none" style="vertical-align:-1px;margin-right:4px;"><polygon points="5 3 19 12 5 21 5 3"/></svg>Abrir</a>'
+          : '<span class="li-pill on"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:4px;"><polyline points="20 6 9 17 4 12"/></svg>Vinculado</span>';
         row.innerHTML =
-          '<div class="li-icon"><img src="'+p.icon+'" alt="'+p.name+'" onerror="this.style.display=\'none\';this.parentElement.textContent=\'🎮\';"></div>'
+          '<div class="li-icon"><img src="'+p.icon+'" alt="'+p.name+'" onerror="this.style.display=\'none\';this.parentElement.innerHTML=\'<svg width=&quot;20&quot; height=&quot;20&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><rect x=&quot;2&quot; y=&quot;7&quot; width=&quot;20&quot; height=&quot;10&quot; rx=&quot;4&quot;/><path d=&quot;M6 10v4M4 12h4&quot;/><circle cx=&quot;15&quot; cy=&quot;10&quot; r=&quot;1&quot; fill=&quot;currentColor&quot;/><circle cx=&quot;18&quot; cy=&quot;13&quot; r=&quot;1&quot; fill=&quot;currentColor&quot;/></svg>\';"></div>'
           +'<div class="li-info">'
             +'<div class="li-name">'+p.name+'</div>'
             +'<div style="font-size:11px;color:var(--t2);">'+p.desc+'</div>'
@@ -794,7 +913,7 @@
 
       // Unconnected (BAP ID compatible but not linked yet)
       if (unconnected.length === 0 && soon.length === 0) {
-        availEl.innerHTML = '<div style="font-size:13px;color:var(--t3);padding:16px 0;">¡Todos los productos están vinculados! 🎉</div>';
+        availEl.innerHTML = '<div style="font-size:13px;color:var(--t3);padding:16px 0;display:flex;align-items:center;justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:6px;"><circle cx="12" cy="12" r="9"/><polyline points="8 12 11 15 16 9"/></svg>¡Todos los productos están vinculados!</div>';
       } else {
         unconnected.forEach(p => {
           const row = document.createElement('div');
@@ -825,7 +944,7 @@
             const linkStart = p.url && p.url !== '#' ? '<a href="'+p.url+'" target="_blank" style="text-decoration:none;display:contents;">' : '';
             const linkEnd   = p.url && p.url !== '#' ? '</a>' : '';
             row.innerHTML = linkStart
-              +'<div class="li-icon" style="filter:grayscale(1);opacity:.6;"><img src="'+p.icon+'" alt="'+p.name+'" onerror="this.parentElement.textContent=\'🎮\'"></div>'
+              +'<div class="li-icon" style="filter:grayscale(1);opacity:.6;"><img src="'+p.icon+'" alt="'+p.name+'" onerror="this.parentElement.innerHTML=\'<svg width=&quot;20&quot; height=&quot;20&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;><rect x=&quot;2&quot; y=&quot;7&quot; width=&quot;20&quot; height=&quot;10&quot; rx=&quot;4&quot;/><path d=&quot;M6 10v4M4 12h4&quot;/><circle cx=&quot;15&quot; cy=&quot;10&quot; r=&quot;1&quot; fill=&quot;currentColor&quot;/><circle cx=&quot;18&quot; cy=&quot;13&quot; r=&quot;1&quot; fill=&quot;currentColor&quot;/></svg>\'"></div>'
               +'<div class="li-info">'
                 +'<div class="li-name" style="color:var(--t3);">'+p.name+'</div>'
                 +'<div style="font-size:11px;color:var(--t3);">'+p.desc+'</div>'
@@ -857,12 +976,13 @@
 
       renderDashboard(linkedGames);
 
-      // Show auth section with profile
-      _setAppMode(true);
-      $('auth-back-btn').style.display='none';
-      $('view-auth').style.display='none';
-      $('view-profile').style.display='';
-      location.hash='dashboard';
+      // Ya no se fuerza una pantalla completa: si veníamos del login/registro,
+      // se vuelve a la landing normal. El Dashboard es un overlay aparte que
+      // se abre solo cuando el usuario toca "Mi BAP ID" en el nav.
+      if($('auth-section').classList.contains('visible')){
+        _setAppMode(false);
+        location.hash='home';
+      }
 
       // Update nav — avoid nested backticks (syntax error)
       const navCtas=$('nav-ctas');
@@ -879,6 +999,10 @@
         +'<button class="nav-btn solid" onclick="ui.showDashboard()">Mi BAP ID</button>';
 
       try{ localStorage.setItem('bap_id_uid',user.uid); }catch(e){}
+
+      // Si llegamos aquí con #dashboard en la URL (refresco de página estando
+      // en el Dashboard), lo volvemos a abrir como overlay.
+      if(location.hash.replace('#','')==='dashboard') window.ui.showDashboard();
 
       if(window.opener&&!window.opener.closed){
         const gameCode=linkedGames.juego_principal||'';
@@ -914,15 +1038,15 @@
       const email=$('l-email').value.trim();
       if(!email){ msg('l-msg','Escribe tu email arriba primero.'); return; }
       load(true);
-      try{ await sendPasswordResetEmail(auth,email); msg('l-msg','✓ Revisa tu correo para restablecer la contraseña.','ok'); }
+      try{ await sendPasswordResetEmail(auth,email); msg('l-msg','<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:4px;"><polyline points="20 6 9 17 4 12"/></svg>Revisa tu correo para restablecer la contraseña.','ok'); }
       catch(e){ msg('l-msg',errES(e.code)); } finally{ load(false); }
     }
     async function doSignOut(){
       await signOut(auth); _uid='';
-      $('view-profile').style.display='none';
       $('view-auth').style.display='';
       $('auth-back-btn').style.display='';
       $('auth-section').classList.remove('visible');
+      window.ui.closeDashboard();
       _setAppMode(false);
       location.hash='home';
       // Reset nav — string concat to avoid quote/backtick conflicts
@@ -940,7 +1064,7 @@
     let _pwaPrompt=null;
     function _pwaInstallBtnHtml(){
       if(!_pwaPrompt)return'';
-      return '<button class="nav-btn ghost" id="pwaInstallBtn" onclick="ui.installApp()">📲 Instalar app</button>';
+      return '<button class="nav-btn ghost" id="pwaInstallBtn" onclick="ui.installApp()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Instalar app</button>';
     }
     function _injectPwaBtn(){
       if(!_pwaPrompt||$('pwaInstallBtn'))return;
@@ -972,35 +1096,66 @@
         $('auth-title').textContent=isL?'Bienvenido':'Crea tu BAP ID';
         $('auth-sub').textContent=isL?'Inicia sesión para continuar.':'Es gratis y tarda menos de un minuto.';
       },
-      togglePw(id,btn){ const el=$(id); el.type=el.type==='password'?'text':'password'; btn.textContent=el.type==='password'?'👁':'🙈'; },
+      togglePw(id,btn){ const el=$(id); el.type=el.type==='password'?'text':'password'; btn.innerHTML=el.type==='password'?'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>':'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>'; },
       formatCode(el){ let v=el.value.replace(/[^A-Za-z0-9]/g,'').toUpperCase(); if(v.length>4)v=v.slice(0,4)+'-'+v.slice(4); if(v.length>7)v=v.slice(0,7)+'-'+v.slice(7); el.value=v.slice(0,12); },
       toggleGplay(){ const n=$('gplay-notice'); n.style.display=n.style.display==='none'?'':'none'; },
-      copyUID(){ if(!_uid)return; navigator.clipboard.writeText(_uid).then(()=>toast('ID copiado ✓')).catch(()=>toast('No se pudo copiar')); },
+      copyUID(){ if(!_uid)return; navigator.clipboard.writeText(_uid).then(()=>toast('<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px;"><polyline points="20 6 9 17 4 12"/></svg>ID copiado')).catch(()=>toast('No se pudo copiar')); },
       showDashboard(){
-        _setAppMode(true);
-        $('auth-back-btn').style.display='none';
-        $('view-auth').style.display='none';
-        $('view-profile').style.display='';
+        // El Dashboard es un overlay tipo modal (como Tienda/Colección en
+        // Grudgeball) que aparece ENCIMA de la landing, no otra "sección".
+        $('dashboard-overlay').classList.add('open');
+        document.body.classList.add('no-scroll');
         location.hash='dashboard';
-        window.scrollTo({top:0,behavior:'smooth'});
+      },
+      closeDashboard(){
+        $('dashboard-overlay').classList.remove('open');
+        document.body.classList.remove('no-scroll');
+        if(location.hash.replace('#','')==='dashboard') location.hash='home';
+      },
+      openMyGames(){
+        // "Mis juegos" del nav: si ya hay sesión, abre el Dashboard.
+        // Si no, manda a iniciar sesión primero.
+        if(_uid) window.ui.showDashboard();
+        else window.ui.showAuth('login');
+      },
+      showCatalog(){
+        $('catalog-overlay').classList.add('open');
+        document.body.classList.add('no-scroll');
+      },
+      closeCatalog(){
+        $('catalog-overlay').classList.remove('open');
+        if(!$('dashboard-overlay').classList.contains('open')&&!$('support-overlay').classList.contains('open'))
+          document.body.classList.remove('no-scroll');
+      },
+      showSupport(){
+        $('support-overlay').classList.add('open');
+        document.body.classList.add('no-scroll');
+      },
+      closeSupport(){
+        $('support-overlay').classList.remove('open');
+        if(!$('dashboard-overlay').classList.contains('open')&&!$('catalog-overlay').classList.contains('open'))
+          document.body.classList.remove('no-scroll');
       },
       showAuth(tab='login'){
         _setAppMode(true);
         $('auth-back-btn').style.display='';
         $('view-auth').style.display='';
-        $('view-profile').style.display='none';
         window.ui.setTab(tab);
         location.hash=tab;
         window.scrollTo({top:0,behavior:'smooth'});
       },
       showLanding(){
         _setAppMode(false);
+        window.ui.closeDashboard();
+        window.ui.closeCatalog();
+        window.ui.closeSupport();
         location.hash='home';
         window.scrollTo({top:0,behavior:'smooth'});
       }
     };
 
     // ── Modo "app" vs landing — solo uno visible a la vez, como un sitio profesional real ──
+    // (esto es solo para Login/Registro; el Dashboard usa su propio overlay arriba)
     function _setAppMode(isApp){
       $('landing-view').classList.toggle('hidden',isApp);
       const links=$('nav-links'); if(links) links.style.display=isApp?'none':'';
