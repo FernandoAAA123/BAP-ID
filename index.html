@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BAP ID — BAP Studios</title>
+  <title>BAP Studios — Juegos y apps</title>
+  <meta name="description" content="BAP Studios: juegos y apps para el navegador. Sin descargas — juega desde cualquier dispositivo con tu BAP ID.">
   <link rel="icon" type="image/png" href="https://chibi.iitranq.co.uk/BmBfGROSXFdY.jpg">
-  <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22BAP%20ID%20%E2%80%94%20BAP%20Studios%22%2C%22short_name%22%3A%22BAP%20ID%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23000000%22%2C%22theme_color%22%3A%22%23000000%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A%2F%2Fchibi.iitranq.co.uk%2FBmBfGROSXFdY.jpg%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fjpeg%22%7D%5D%7D">
+  <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22BAP%20Studios%22%2C%22short_name%22%3A%22BAP%20Studios%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23000000%22%2C%22theme_color%22%3A%22%23000000%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A%2F%2Fchibi.iitranq.co.uk%2FBmBfGROSXFdY.jpg%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fjpeg%22%7D%5D%7D">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
@@ -163,8 +164,8 @@
     .bento-title{font-size:18px;font-weight:800;color:var(--t0);margin-bottom:8px;letter-spacing:-.3px;}
     .bento-text{font-size:14px;color:var(--t2);line-height:1.6;}
 
-    /* ─── PRODUCTS ─── */
-    #products{background:var(--bg);}
+    /* ─── PRODUCTS / GAMES ─── */
+    #games{background:var(--s1);}
     .products-grid{
       display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
       gap:12px;max-width:1100px;margin:60px auto 0;
@@ -184,15 +185,16 @@
     .product-name{font-size:15px;font-weight:700;color:var(--t0);margin-bottom:3px;}
     .product-desc{font-size:12px;color:var(--t3);}
     .product-pill{
-      margin-left:auto;flex-shrink:0;
+      margin-left:auto;flex-shrink:0;display:inline-block;cursor:pointer;
       font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;
       background:rgba(74,222,128,.08);color:var(--green);
-      border:1px solid rgba(74,222,128,.18);
+      border:1px solid rgba(74,222,128,.18);transition:background .12s,border-color .12s;
     }
+    a.product-pill:hover{background:rgba(74,222,128,.16);border-color:rgba(74,222,128,.3);}
     .product-pill.soon{background:rgba(255,255,255,.04);color:var(--t3);border-color:var(--b);}
 
     /* ─── HOW IT WORKS ─── */
-    #how{background:var(--s1);}
+    #how{background:var(--bg);}
     .steps{
       display:grid;grid-template-columns:repeat(3,1fr);
       gap:24px;max-width:900px;margin:60px auto 0;
@@ -210,7 +212,7 @@
 
     /* ─── CTA BAND ─── */
     #cta-band{
-      background:var(--bg);
+      background:var(--s1);
       padding:100px 5%;text-align:center;
     }
     #cta-band h2{
@@ -424,11 +426,12 @@
   <nav>
     <a class="nav-logo" href="#home" onclick="ui.showLanding();return true;">
       <img src="https://chibi.iitranq.co.uk/BmBfGROSXFdY.jpg" alt="BAP Studios">
-      <span>BAP ID</span>
+      <span>BAP Studios</span>
     </a>
     <div class="nav-links" id="nav-links">
-      <a href="javascript:void(0)" onclick="ui.openMyGames()">Mis juegos</a>
-      <a href="javascript:void(0)" onclick="ui.showCatalog()">Catálogo</a>
+      <a href="javascript:void(0)" onclick="ui.scrollToSection('games')">Juegos</a>
+      <a href="javascript:void(0)" onclick="ui.scrollToSection('about')">Sobre nosotros</a>
+      <a href="javascript:void(0)" onclick="ui.openMyGames()">Mi cuenta</a>
       <a href="javascript:void(0)" onclick="ui.showSupport()">Soporte</a>
     </div>
     <div class="nav-ctas" id="nav-ctas">
@@ -440,13 +443,16 @@
   <main id="landing-view">
   <!-- ═══════════ HERO ═══════════ -->
   <section class="hero" id="home">
-    <div class="hero-badge"><span class="hero-badge-dot"></span>Disponible ahora</div>
+    <div class="hero-badge"><span class="hero-badge-dot"></span>Estudio indie activo</div>
     <div class="hero-logo"><img src="https://chibi.iitranq.co.uk/BmBfGROSXFdY.jpg" alt="BAP Studios"></div>
-    <h1>BAP ID</h1>
-    <p class="hero-sub">Un solo login para todos los juegos y apps de BAP Studios. Protege tu cuenta, juega desde cualquier dispositivo y mantente conectado.</p>
+    <h1>BAP Studios</h1>
+    <p class="hero-sub">Hacemos juegos y apps para el navegador. Sin descargas, sin instalaciones — entra desde cualquier dispositivo y sigue justo donde lo dejaste.</p>
     <div class="hero-ctas">
-      <button class="btn-hero primary" onclick="ui.showAuth('register')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <button class="btn-hero primary" onclick="ui.scrollToSection('games')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Ver nuestros juegos
+      </button>
+      <button class="btn-hero secondary" onclick="ui.showAuth('register')">
         Crear BAP ID gratis
       </button>
     </div>
@@ -456,11 +462,75 @@
     </div>
   </section>
 
-  <!-- ═══════════ FEATURES BENTO ═══════════ -->
+  <!-- ═══════════ NUESTROS JUEGOS (showcase principal) ═══════════ -->
+  <section id="games">
+    <div style="text-align:center;max-width:600px;margin:0 auto;">
+      <p class="section-label">Catálogo</p>
+      <h2 class="section-title">Nuestros juegos y apps</h2>
+      <p style="color:var(--t2);font-size:15px;line-height:1.65;">Todo se juega directo en el navegador. Con tu BAP ID, tu progreso te sigue a donde vayas.</p>
+    </div>
+    <div class="products-grid" id="games-grid">
+      <div class="product-card">
+        <div class="product-icon"><img src="https://uploads.onecompiler.io/447259qgx/44cxpnfu9/Vaso%20de%20Universo.png" alt="Cup O'Clicker"></div>
+        <div>
+          <div class="product-name">Cup O'Clicker</div>
+          <div class="product-desc">Juego · Sanjay and Craig</div>
+        </div>
+        <a class="product-pill" href="https://fernandoaaa123.github.io/sanjay-and-craig-cup-o-clicker/" target="_blank" rel="noopener" style="text-decoration:none;">Jugar</a>
+      </div>
+      <div class="product-card">
+        <div class="product-icon"><img src="https://chibi.iitranq.co.uk/Y1OMxvpQecD2.png?v=2" alt="Nova"></div>
+        <div>
+          <div class="product-name">Nova</div>
+          <div class="product-desc">App · Chat y comunidades</div>
+        </div>
+        <a class="product-pill" href="https://fernandoaaa123.github.io/nova/" target="_blank" rel="noopener" style="text-decoration:none;">Abrir</a>
+      </div>
+      <div class="product-card">
+        <div class="product-icon"><img src="https://chibi.iitranq.co.uk/mw7fgng37rnJ.png" alt="Grudgeball Evolution"></div>
+        <div>
+          <div class="product-name">Grudgeball Evolution</div>
+          <div class="product-desc">Juego · Deportes · Regular Show</div>
+        </div>
+        <a class="product-pill" href="https://fernandoaaa123.github.io/regular-show-grudgeball-evolution/" target="_blank" rel="noopener" style="text-decoration:none;">Jugar</a>
+      </div>
+      <div class="product-card">
+        <div class="product-icon"><img src="https://upload.wikimedia.org/wikipedia/en/6/69/Breadwinners_title.png" alt="Breadwinners" onerror="this.parentElement.innerHTML='🍞'"></div>
+        <div>
+          <div class="product-name">Breadwinners: Bread Dash!</div>
+          <div class="product-desc">Juego · Runner infinito</div>
+        </div>
+        <span class="product-pill soon">Pronto</span>
+      </div>
+      <div class="product-card">
+        <div class="product-icon empty">+</div>
+        <div>
+          <div class="product-name" style="color:var(--t3);">Más próximamente</div>
+          <div class="product-desc">Nuevos juegos y apps</div>
+        </div>
+        <span class="product-pill soon">Pronto</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ SOBRE NOSOTROS ═══════════ -->
+  <section id="about">
+    <div style="text-align:center;max-width:640px;margin:0 auto;">
+      <p class="section-label">Sobre nosotros</p>
+      <h2 class="section-title">Un estudio pequeño, hecho con cariño</h2>
+      <p style="color:var(--t2);font-size:16px;line-height:1.75;">
+        BAP Studios es un estudio indie que crea juegos y apps directamente para el navegador — sin descargas, sin tiendas de apps, sin fricción.
+        Nos inspiran los dibujos animados y los juegos clásicos, y construimos cada producto para que se sienta rápido, divertido y accesible desde cualquier dispositivo.
+        Todo el ecosistema comparte una sola cuenta — tu <strong style="color:var(--t0);">BAP ID</strong> — así que tu progreso siempre te acompaña.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════ FEATURES BENTO — BAP ID como la cuenta del ecosistema ═══════════ -->
   <section id="features">
     <div style="text-align:center;max-width:600px;margin:0 auto;">
-      <p class="section-label">Por qué BAP ID</p>
-      <h2 class="section-title">Todo lo que necesitas, en una sola cuenta</h2>
+      <p class="section-label">Tu cuenta</p>
+      <h2 class="section-title">Un BAP ID, todos los juegos</h2>
     </div>
     <div class="bento">
       <div class="bento-card big">
@@ -491,62 +561,11 @@
     </div>
   </section>
 
-  <!-- ═══════════ PRODUCTOS ═══════════ -->
-  <section id="products">
-    <div style="text-align:center;max-width:600px;margin:0 auto;">
-      <p class="section-label">Productos compatibles</p>
-      <h2 class="section-title">Un ID, todos los juegos</h2>
-      <p style="color:var(--t2);font-size:15px;line-height:1.65;">BAP ID ya funciona en estos productos. Más llegarán pronto.</p>
-    </div>
-    <div class="products-grid">
-      <div class="product-card">
-        <div class="product-icon"><img src="https://uploads.onecompiler.io/447259qgx/44cxpnfu9/Vaso%20de%20Universo.png" alt="Cup O'Clicker"></div>
-        <div>
-          <div class="product-name">Cup O'Clicker</div>
-          <div class="product-desc">Juego · Sanjay and Craig</div>
-        </div>
-        <span class="product-pill">Activo</span>
-      </div>
-      <div class="product-card">
-        <div class="product-icon"><img src="https://chibi.iitranq.co.uk/Y1OMxvpQecD2.png?v=2" alt="Nova"></div>
-        <div>
-          <div class="product-name">Nova</div>
-          <div class="product-desc">App · Chat y comunidades</div>
-        </div>
-        <span class="product-pill">Activo</span>
-      </div>
-      <div class="product-card">
-        <div class="product-icon"><img src="https://upload.wikimedia.org/wikipedia/en/6/69/Breadwinners_title.png" alt="Breadwinners" onerror="this.parentElement.innerHTML='🍞'"></div>
-        <div>
-          <div class="product-name">Breadwinners: Bread Dash!</div>
-          <div class="product-desc">Juego · Runner infinito</div>
-        </div>
-        <span class="product-pill soon">Pronto</span>
-      </div>
-      <div class="product-card">
-        <div class="product-icon"><img src="https://chibi.iitranq.co.uk/mw7fgng37rnJ.png" alt="Grudgeball Evolution"></div>
-        <div>
-          <div class="product-name">Grudgeball Evolution</div>
-          <div class="product-desc">Juego · Deportes · Regular Show</div>
-        </div>
-        <span class="product-pill">Activo</span>
-      </div>
-      <div class="product-card">
-        <div class="product-icon empty">+</div>
-        <div>
-          <div class="product-name" style="color:var(--t3);">Más próximamente</div>
-          <div class="product-desc">Nuevos juegos y apps</div>
-        </div>
-        <span class="product-pill soon">Pronto</span>
-      </div>
-    </div>
-  </section>
-
   <!-- ═══════════ HOW IT WORKS ═══════════ -->
   <section id="how">
     <div style="text-align:center;max-width:600px;margin:0 auto;">
       <p class="section-label">Cómo funciona</p>
-      <h2 class="section-title">En tres pasos</h2>
+      <h2 class="section-title">Tu BAP ID en tres pasos</h2>
     </div>
     <div class="steps">
       <div class="step">
@@ -564,6 +583,16 @@
         <div class="step-title">Juega seguro</div>
         <div class="step-text">Tu progreso queda respaldado. Accede desde cualquier dispositivo cuando quieras.</div>
       </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ CTA FINAL ═══════════ -->
+  <section id="cta-band">
+    <h2>Entra a jugar</h2>
+    <p>Explora el catálogo de BAP Studios o crea tu BAP ID gratis en menos de un minuto.</p>
+    <div class="hero-ctas">
+      <button class="btn-hero primary" onclick="ui.scrollToSection('games')">Ver juegos</button>
+      <button class="btn-hero secondary" onclick="ui.showAuth('register')">Crear BAP ID</button>
     </div>
   </section>
   </main>
@@ -688,7 +717,7 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
       <div class="modal-title">Catálogo de BAP Studios</div>
-      <div class="modal-sub">Un solo BAP ID funciona en todos estos juegos y apps.</div>
+      <div class="modal-sub">Todos nuestros juegos y apps, con tu BAP ID vinculado.</div>
       <div class="products-grid">
         <div class="product-card">
           <div class="product-icon"><img src="https://uploads.onecompiler.io/447259qgx/44cxpnfu9/Vaso%20de%20Universo.png" alt="Cup O'Clicker"></div>
@@ -772,26 +801,21 @@
       <span>BAP Studios</span>
     </div>
     <div class="footer-links">
+      <a href="javascript:void(0)" onclick="ui.scrollToSection('games')">Juegos</a>
+      <a href="javascript:void(0)" onclick="ui.scrollToSection('about')">Sobre nosotros</a>
+      <a href="javascript:void(0)" onclick="ui.showSupport()">Soporte</a>
       <a href="#">Privacidad</a>
       <a href="#">Términos</a>
-      <a href="#">Soporte</a>
-      <a href="#">Nuestros dominios</a>
     </div>
-    <span class="footer-copy">© 2025 BAP Studios</span>
+    <span class="footer-copy">© 2026 BAP Studios</span>
   </footer>
 
   <!-- ═══════════ FIREBASE + LOGIC ═══════════ -->
-  <script type="module">
-    import { initializeApp }                      from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-    import { getAuth, onAuthStateChanged,
-             signInWithPopup, signInWithEmailAndPassword,
-             createUserWithEmailAndPassword, updateProfile,
-             sendPasswordResetEmail, signOut,
-             GoogleAuthProvider }                 from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
-    import { getFirestore, doc, getDoc, setDoc,
-             updateDoc, serverTimestamp }          from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
-
-    const app  = initializeApp({
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-app-compat.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-auth-compat.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.3.0/firebase-firestore-compat.min.js"></script>
+  <script>
+    firebase.initializeApp({
       apiKey:            "AIzaSyDYO-VjjLbqrYIWV-mMfKpsR_TvBJZgLZ0",
       authDomain:        "bap-studios-id.firebaseapp.com",
       projectId:         "bap-studios-id",
@@ -799,8 +823,8 @@
       messagingSenderId: "501288448264",
       appId:             "1:501288448264:web:01cd627b9a63a23e3c3cbd"
     });
-    const auth = getAuth(app);
-    const db   = getFirestore(app);
+    const auth = firebase.auth();
+    const db   = firebase.firestore();
 
     const $ = id => document.getElementById(id);
     const load = v => $('loader').classList.toggle('on', v);
@@ -824,12 +848,12 @@
     }
 
     async function saveProfile(user,extra={}){
-      const ref=doc(db,'bap_users',user.uid);
-      const snap=await getDoc(ref);
-      if(!snap.exists()){
-        await setDoc(ref,{uid:user.uid,email:user.email,name:user.displayName||extra.name||'',photo:user.photoURL||'',created_at:serverTimestamp(),linked_games:extra.code?{juego_principal:extra.code}:{}});
+      const ref=db.collection('bap_users').doc(user.uid);
+      const snap=await ref.get();
+      if(!snap.exists){
+        await ref.set({uid:user.uid,email:user.email,name:user.displayName||extra.name||'',photo:user.photoURL||'',created_at:firebase.firestore.FieldValue.serverTimestamp(),linked_games:extra.code?{juego_principal:extra.code}:{}});
       } else if(extra.code&&!snap.data().linked_games?.juego_principal){
-        await updateDoc(ref,{'linked_games.juego_principal':extra.code});
+        await ref.update({'linked_games.juego_principal':extra.code});
       }
     }
 
@@ -970,8 +994,8 @@
 
       let linkedGames={};
       try{
-        const snap=await getDoc(doc(db,'bap_users',user.uid));
-        if(snap.exists()) linkedGames=snap.data().linked_games||{};
+        const snap=await db.collection('bap_users').doc(user.uid).get();
+        if(snap.exists) linkedGames=snap.data().linked_games||{};
       }catch(e){}
 
       renderDashboard(linkedGames);
@@ -1013,7 +1037,7 @@
 
     async function loginGoogle(){
       load(true);
-      try{ const r=await signInWithPopup(auth,new GoogleAuthProvider()); await saveProfile(r.user); await showProfile(r.user); }
+      try{ const r=await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()); await saveProfile(r.user); await showProfile(r.user); }
       catch(e){ msg('l-msg',errES(e.code)); } finally{ load(false); }
     }
     async function loginEmail(){
@@ -1021,7 +1045,7 @@
       const email=$('l-email').value.trim(), pass=$('l-pass').value;
       if(!email||!pass){ msg('l-msg','Completa email y contraseña.'); return; }
       load(true);
-      try{ const r=await signInWithEmailAndPassword(auth,email,pass); await showProfile(r.user); }
+      try{ const r=await auth.signInWithEmailAndPassword(email,pass); await showProfile(r.user); }
       catch(e){ msg('l-msg',errES(e.code)); } finally{ load(false); }
     }
     async function registerEmail(){
@@ -1031,18 +1055,18 @@
       if(pass.length<8){ msg('r-msg','La contraseña debe tener al menos 8 caracteres.'); return; }
       if(code&&code.length!==12){ msg('r-msg','El código debe tener el formato XXXX-XX-XXXX.'); return; }
       load(true);
-      try{ const r=await createUserWithEmailAndPassword(auth,email,pass); await updateProfile(r.user,{displayName:name}); await saveProfile(r.user,{name,code:code||null}); await showProfile(r.user); }
+      try{ const r=await auth.createUserWithEmailAndPassword(email,pass); await r.user.updateProfile({displayName:name}); await saveProfile(r.user,{name,code:code||null}); await showProfile(r.user); }
       catch(e){ msg('r-msg',errES(e.code)); } finally{ load(false); }
     }
     async function forgotPw(){
       const email=$('l-email').value.trim();
       if(!email){ msg('l-msg','Escribe tu email arriba primero.'); return; }
       load(true);
-      try{ await sendPasswordResetEmail(auth,email); msg('l-msg','<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:4px;"><polyline points="20 6 9 17 4 12"/></svg>Revisa tu correo para restablecer la contraseña.','ok'); }
+      try{ await auth.sendPasswordResetEmail(email); msg('l-msg','<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:4px;"><polyline points="20 6 9 17 4 12"/></svg>Revisa tu correo para restablecer la contraseña.','ok'); }
       catch(e){ msg('l-msg',errES(e.code)); } finally{ load(false); }
     }
     async function doSignOut(){
-      await signOut(auth); _uid='';
+      await auth.signOut(); _uid='';
       $('view-auth').style.display='';
       $('auth-back-btn').style.display='';
       $('auth-section').classList.remove('visible');
@@ -1058,7 +1082,7 @@
       try{ localStorage.removeItem('bap_id_uid'); }catch(e){}
     }
 
-    onAuthStateChanged(auth, user=>{ if(user) showProfile(user); });
+    auth.onAuthStateChanged(user=>{ if(user) showProfile(user); });
 
     // ── PWA: Install prompt ───────────────────────────────────
     let _pwaPrompt=null;
@@ -1151,6 +1175,20 @@
         window.ui.closeSupport();
         location.hash='home';
         window.scrollTo({top:0,behavior:'smooth'});
+      },
+      scrollToSection(id){
+        // Si estamos en modo "app" (auth) o hay un overlay abierto, primero volvemos a la landing
+        window.ui.closeDashboard();
+        window.ui.closeCatalog();
+        window.ui.closeSupport();
+        _setAppMode(false);
+        const go=()=>{
+          const el=document.getElementById(id);
+          if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+        };
+        // Pequeño delay si veníamos de auth-section para que el layout ya esté visible
+        if($('landing-view').classList.contains('hidden')) setTimeout(go,50);
+        else go();
       }
     };
 
